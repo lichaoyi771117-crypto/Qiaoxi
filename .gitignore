@@ -1,0 +1,14 @@
+﻿venv/
+venv312/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.DS_Store
+Thumbs.db
+.agents/
+.claude/
+skills-lock.json
+skills/
+source code/Chinese-Dataset-Laws/
+source code/MiroFish-Offline/

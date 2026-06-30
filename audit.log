@@ -1,0 +1,199 @@
+{"event": "state_transition", "from": "0_upload", "to": "0_pre_read", "timestamp": "2026-06-06T20:50:00.902567", "hash": "97b8f3ae637a8286"}
+{"event": "state_transition", "from": "0_upload", "to": "0_pre_read", "timestamp": "2026-06-06T21:00:28.382316", "hash": "7a8d44c783352f88"}
+{"event": "state_transition", "from": "0_upload", "to": "0_pre_read", "timestamp": "2026-06-06T21:08:43.051210", "hash": "d29cde59446379a9"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-06T21:10:24.205734", "hash": "da1e9b7c7f5fea1c"}
+{"event": "rag_call", "success": true, "query_count": 0, "abolished_laws_blocked": 0, "timestamp": "2026-06-06T21:10:24.206683", "hash": "5850ef04b901552f"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-06T21:10:34.536532", "hash": "a4d7e501626139e9"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-06T21:47:56.027947", "hash": "ca9555f6ce876f90"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-06T21:48:35.429044", "hash": "b2be82736321f2e6"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-06T21:50:47.330088", "hash": "3fe6dacc25c56b92"}
+{"event": "rag_call", "success": true, "query_count": 0, "abolished_laws_blocked": 0, "timestamp": "2026-06-06T21:50:47.330775", "hash": "b830c083d4f9819e"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-06T21:51:06.442004", "hash": "ca4b1b67f5974379"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-06T21:57:47.941005", "hash": "dfb0153e7e67bbcb"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-06T21:58:22.806282", "hash": "665197c2968041b6"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-06T22:02:19.644036", "hash": "9dd1c30dacc22361"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-06T22:02:50.292248", "hash": "23b760338e61d6c0"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-06T22:10:53.499794", "hash": "b020aed663eda14d"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-06T22:11:20.899766", "hash": "b5209bca9aeb8180"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-06T22:23:23.728583", "hash": "0b727bdcc5ba8915"}
+{"event": "rag_call", "success": true, "query_count": 0, "abolished_laws_blocked": 0, "timestamp": "2026-06-06T22:23:23.730139", "hash": "632150009e9f944a"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-06T22:32:43.685432", "hash": "4476f68463ce2d66"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-06T22:33:11.865545", "hash": "3d4e4089aa14e045"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-06T22:35:27.514373", "hash": "253bd9e8e5f98c84"}
+{"event": "rag_call", "success": true, "query_count": 0, "abolished_laws_blocked": 0, "timestamp": "2026-06-06T22:35:27.514953", "hash": "62d90f21e1bacbcc"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-06T22:35:59.428695", "hash": "c7c539208e0ea1fd"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-06T22:39:55.956991", "hash": "456f74cdce71858d"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-06T22:40:27.632489", "hash": "adeb481b3e117b57"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-06T22:41:59.065782", "hash": "ccd68249c6f66193"}
+{"event": "rag_call", "success": true, "query_count": 0, "abolished_laws_blocked": 0, "timestamp": "2026-06-06T22:41:59.066293", "hash": "9c46fc13bb44b019"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-06T22:42:20.336781", "hash": "2963415e087e6822"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-06T22:55:58.846712", "hash": "f193e434985cc683"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-06T22:56:28.379251", "hash": "920bd3a6da34dda2"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-06T22:58:20.262221", "hash": "ebf3b95254b7c0cc"}
+{"event": "rag_call", "success": true, "query_count": 0, "abolished_laws_blocked": 0, "timestamp": "2026-06-06T22:58:20.262684", "hash": "b742282716e711b8"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-06T22:58:55.070295", "hash": "032ebb5e4ae72aba"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-07T15:12:47.067822", "hash": "749d73b7174d432a"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-07T15:14:10.115414", "hash": "47b4a6282ea31718"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-07T15:16:03.821576", "hash": "d0955b07df9b4f28"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-07T15:16:04.216614", "hash": "ca26adc2066b75fb"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-07T15:16:14.931270", "hash": "26a77bf30ae85402"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-07T16:23:50.473975", "hash": "9a58f29ca43229a9"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-07T16:24:22.897998", "hash": "4c143357ebf78c08"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-07T16:26:42.911659", "hash": "ca3ae7d4d5e4cd37"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-07T16:26:43.718911", "hash": "b7017ac23e54b90d"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-07T16:27:01.967018", "hash": "1c3b753e69bdbef2"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-07T16:33:50.033572", "hash": "b3f8c301f31f5d35"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-07T16:34:26.198449", "hash": "7f02cb2e2e65c328"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-07T16:36:03.354217", "hash": "aa059c02ee0a1815"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-07T16:36:04.106692", "hash": "02a53a4f522d6c14"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-07T16:36:20.077506", "hash": "79c3af1eacbdf7a4"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T16:41:21.500627", "hash": "174c62929eda3001"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T16:42:00.969345", "hash": "85cd8dfe92099d3f"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T16:43:34.780989", "hash": "afcad43385fa375f"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T16:43:35.168026", "hash": "aebc5bb384cfd38e"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T16:43:56.475288", "hash": "21ba7661f7df37f0"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T16:44:41.952425", "hash": "40073389d576dd42"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T16:44:42.131274", "hash": "58130205a4423d91"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T16:44:42.309034", "hash": "b00c6ac58bf7c538"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T16:44:42.310856", "hash": "af6e0c7f4cebe7db"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T17:46:16.043538", "hash": "100770b3f1cb2104"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T17:46:34.960449", "hash": "72bce547c25e8625"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T17:48:24.795267", "hash": "513ec237e2a35f97"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T17:48:25.027381", "hash": "1489e66df13e5cd2"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T17:48:44.118289", "hash": "826762e03cd60fa3"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T17:49:28.731950", "hash": "33c1aec69df760f4"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T17:49:28.924714", "hash": "4f9b95e39c89e6c7"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T17:49:29.114074", "hash": "b878edd63835cb32"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T17:53:41.312133", "hash": "3dcff44a74194b47"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T17:53:56.405444", "hash": "5df482db3d615350"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T17:55:33.136989", "hash": "66340653b49a673d"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T17:55:33.363918", "hash": "8238145dff552a85"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T17:55:52.065046", "hash": "2b0ca21e93c05d71"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T17:56:35.767548", "hash": "59096ae693e592dc"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T17:56:35.979232", "hash": "1fef94b2975ef3bd"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T17:56:36.172640", "hash": "c87d175c9504dcf8"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T18:29:48.914830", "hash": "367658124f8116a5"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T18:30:07.477976", "hash": "780356c8e14255c3"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T18:32:26.419544", "hash": "d55ad8ce519fc9fd"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T18:32:26.629747", "hash": "fe0fe79743207775"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T18:32:52.550947", "hash": "8733063b32b8cf56"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T18:33:44.091992", "hash": "f4e178084e7ea213"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T18:33:44.277633", "hash": "c48aa4453d4a4d00"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T18:33:44.450662", "hash": "23f89bb22c1bb25f"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T18:33:44.452787", "hash": "75071e4956a7ec16"}
+{"event": "file_deletion", "filename": "合作意向协议-改20260512.docx", "reason": "user_request", "timestamp": "2026-06-08T18:40:14.610702", "hash": "24a62eefc57a639e"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T19:01:18.661532", "hash": "0a4611ae209d6b1f"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T19:01:45.858210", "hash": "ee1249219b7faa9d"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T19:03:33.598367", "hash": "7d6c85cf23a3e015"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T19:03:33.879067", "hash": "ba04baa635c02f8f"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T19:03:57.613143", "hash": "3a01ca35b1696f94"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T19:04:43.555829", "hash": "2abf2f3b25d17327"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T19:04:43.739230", "hash": "6d7ee7a4331714f8"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T19:04:43.911955", "hash": "33d1457aa8ae60a7"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T19:04:43.914065", "hash": "047bab923e3c28eb"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T19:37:08.026853", "hash": "421f59447a51dd8e"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T19:37:28.614100", "hash": "afa3c71acd3021ba"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T19:39:02.610517", "hash": "154e4040c5e7cd68"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T19:39:02.887548", "hash": "57cb90b8c9d0bc16"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T19:39:23.467908", "hash": "40b1052eb26c9964"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T19:40:06.782230", "hash": "2ea378a2a6c5cf24"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T19:40:06.958314", "hash": "ab6a61e415d3e1e3"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T19:40:07.132782", "hash": "4c5840211bb18f23"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T19:40:07.135334", "hash": "f06f8389184cd3e4"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T19:45:00.405901", "hash": "642cd84181fff6d5"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T19:45:19.628296", "hash": "ec3624c94f3dc543"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T19:47:12.449981", "hash": "e0d31bb3854d8de9"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T19:47:12.728337", "hash": "c5b4cbea30e3f906"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T19:47:38.167127", "hash": "40bfa6be833a05e5"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T19:48:19.751147", "hash": "b41c2f613be165b1"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T19:48:19.932348", "hash": "fa433e9e57b6d5ed"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T19:48:20.103136", "hash": "c8657a08e8a6a033"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T19:48:20.104916", "hash": "98ae0fbf4e14f7c2"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T20:17:34.244708", "hash": "b0406078bce7d28e"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T20:17:56.253856", "hash": "74713f0a4623e460"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T20:19:31.242251", "hash": "7c25dc9e61de7cc6"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T20:19:31.691804", "hash": "d37cba14035c2bf2"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T20:19:54.262747", "hash": "839b7544d7fb2786"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T20:20:39.876400", "hash": "ce71304c952e9599"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T20:20:40.075536", "hash": "e5801484bc43aba1"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T20:20:40.308351", "hash": "486b8b163a5fba54"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T20:20:40.312483", "hash": "55ef1d6da34126ef"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T21:11:03.114985", "hash": "d102c962fc848377"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T21:11:26.345505", "hash": "487662f8c3a65d10"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T21:12:46.659733", "hash": "01310dfbbe48e346"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T21:12:47.128834", "hash": "5c582f1ed3ac078e"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T21:13:08.478524", "hash": "dd90163a2de2b551"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T21:13:59.250809", "hash": "92b0c53f35ed008b"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T21:13:59.462640", "hash": "c8b36e37e7d230f2"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T21:13:59.644439", "hash": "63c6266598ea6220"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T21:13:59.646302", "hash": "e08749b8212f2636"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-08T21:39:59.706775", "hash": "34513e27f40db5ab"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-08T21:40:26.190096", "hash": "ccbd2889ecdc129a"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-08T21:42:06.826276", "hash": "c4ed9af422cf1b08"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-08T21:42:07.164922", "hash": "d75504ae696a0190"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-08T21:42:31.581266", "hash": "2bf7a32dc4b3b5a8"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-08T21:43:27.776825", "hash": "e77d04d926e076c5"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-08T21:43:27.965060", "hash": "19a823270a9cd6ff"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-08T21:43:28.135058", "hash": "ac8e78af481dc7f0"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-08T21:43:28.138116", "hash": "9695855fca510822"}
+{"event": "state_transition", "from": "7_report_standard", "to": "8_report_advanced", "timestamp": "2026-06-08T21:47:12.697457", "hash": "f31ee774a651bb52"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-09T17:35:46.482295", "hash": "880c865d7157bd12"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-09T17:36:20.718244", "hash": "84f6444715a66b4e"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-09T17:38:00.151394", "hash": "3a38603ef5a45345"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-09T17:38:00.525432", "hash": "bd922ef22a3a036e"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-09T17:38:32.981155", "hash": "8d5c2cc771dd3126"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-09T17:39:27.249874", "hash": "8d240d5c8d85ef9b"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-09T17:39:27.441155", "hash": "beba3cef1269b0b2"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-09T17:39:27.618052", "hash": "fd78b99860642d80"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-09T17:39:27.621440", "hash": "4bb04ee7926e4ba8"}
+{"event": "state_transition", "from": "7_report_standard", "to": "8_report_advanced", "timestamp": "2026-06-09T17:44:28.460320", "hash": "beccd7b3636a4ecc"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-09T17:50:55.594619", "hash": "46cfb3af87b8fa3b"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-09T17:51:34.674374", "hash": "04d92a811ce37368"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-09T17:55:55.858504", "hash": "c0fea9bbcbf3359a"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-09T17:55:56.077895", "hash": "ff0377a71fc2c77e"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-09T17:56:25.895796", "hash": "b52e72bdcf3f2336"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-09T17:57:18.018570", "hash": "aec9fd7a325e45e7"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-09T17:57:18.213257", "hash": "a7a889d7c456a0d4"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-09T17:57:18.384705", "hash": "46c8f39e271426cc"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-09T17:57:18.386784", "hash": "6274b06374082137"}
+{"event": "state_transition", "from": "7_report_standard", "to": "8_report_advanced", "timestamp": "2026-06-09T18:00:52.565513", "hash": "a62b780fa0baf48c"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-09T18:17:38.796149", "hash": "7cbb243feaf3f342"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-09T18:18:00.232210", "hash": "688742cfbcbc16b5"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-09T18:22:55.646006", "hash": "00e7902dbd70f9c8"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-09T18:22:56.050667", "hash": "08937b9c81027409"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-09T18:23:18.751292", "hash": "cb7319cdced95b38"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-09T18:24:01.406515", "hash": "4734181ac09e7250"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-09T18:24:01.645235", "hash": "b317392aaeec8e63"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-09T18:24:01.851433", "hash": "98eea85c3ba5eb10"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-09T18:24:01.853536", "hash": "799187b5ca704c60"}
+{"event": "state_transition", "from": "7_report_standard", "to": "8_report_advanced", "timestamp": "2026-06-09T18:26:09.560634", "hash": "17d6c0e76cfb8e63"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-10T09:35:51.157088", "hash": "8f39cc874782c0cb"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-10T09:36:34.536228", "hash": "7c9c9530cc681db5"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-10T09:39:46.913450", "hash": "ecc8f169a4177e98"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-10T09:39:47.349390", "hash": "a5ab55c8e3860283"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-10T09:40:04.309043", "hash": "126d890bc604d2b8"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-10T09:40:41.407218", "hash": "b5d6690afbe703ae"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-10T09:40:41.595537", "hash": "ac0687dce1ca94d3"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-10T09:40:41.769353", "hash": "e3ddd4c2046234d1"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-10T09:40:41.772350", "hash": "919ba26736e43343"}
+{"event": "state_transition", "from": "7_report_standard", "to": "8_report_advanced", "timestamp": "2026-06-10T09:47:34.837299", "hash": "2ea2e80cb091b06b"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-10T09:57:30.675223", "hash": "f6a864ab639485a8"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-10T09:57:53.097994", "hash": "99b2f0c93a8b9712"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-10T10:00:05.360355", "hash": "1b87c799f4cb7d32"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-10T10:00:05.481938", "hash": "afac6e674f4cbaff"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-10T10:00:33.541155", "hash": "6745df2663c2fcd3"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-10T10:01:15.020898", "hash": "f37c327855a6c860"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-10T10:01:15.194032", "hash": "e01540fd6b5ae587"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-10T10:01:15.363819", "hash": "87ec46de3eb96873"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-10T10:01:15.365866", "hash": "d96b1e2dd244c836"}
+{"event": "state_transition", "from": "7_report_standard", "to": "8_report_advanced", "timestamp": "2026-06-10T11:00:37.302019", "hash": "5deae9b8b3e0068c"}
+{"event": "user_consent", "granted": true, "timestamp": "2026-06-12T11:17:18.204851", "hash": "3634fa139b33dc1f"}
+{"event": "state_transition", "from": "0_consent_upload", "to": "0_pre_read_sanitized", "timestamp": "2026-06-12T11:18:23.446785", "hash": "fced8961a820d956"}
+{"event": "state_transition", "from": "1_parse", "to": "2_legal_review", "timestamp": "2026-06-12T11:20:39.835033", "hash": "8dee8c4d5e2d31f1"}
+{"event": "rag_call", "success": true, "query_count": 5, "abolished_laws_blocked": 0, "timestamp": "2026-06-12T11:20:40.870220", "hash": "5bf2aeeba0463e88"}
+{"event": "state_transition", "from": "2_legal_review", "to": "3_cld", "timestamp": "2026-06-12T11:21:03.596169", "hash": "42d0208446a978f9"}
+{"event": "state_transition", "from": "3_cld", "to": "4_council", "timestamp": "2026-06-12T11:21:48.319273", "hash": "35a7e1df6194c206"}
+{"event": "state_transition", "from": "4_council", "to": "5_simulation", "timestamp": "2026-06-12T11:21:48.843561", "hash": "50a8031fde8c9269"}
+{"event": "state_transition", "from": "5_simulation", "to": "6_decision", "timestamp": "2026-06-12T11:21:49.352012", "hash": "06b692f54f8b3920"}
+{"event": "state_transition", "from": "2_legal_review", "to": "7_report_standard", "timestamp": "2026-06-12T11:21:49.359197", "hash": "8afff465609b8411"}
+{"event": "state_transition", "from": "7_report_standard", "to": "8_report_advanced", "timestamp": "2026-06-12T11:29:35.316420", "hash": "f63b66c42ef5203d"}
