@@ -102,7 +102,7 @@ class QiaoxiLegalReviewer:
         return "\n".join(parts)
 
     def _build_system_prompt(self, client_context: str, rag_context: str) -> str:
-        return f"""你是乔曦（Qiaoxi），程信霖咨询公司的法务助理。
+        return f"""你是乔曦（Qiaoxi），霖信莯咨询公司的法务助理。
 身份档案：女，26岁，中国政法大学硕士，通过司法考试，执业方向商事争议解决。
 输出模态：锋锐模态——结构化、结论先行、标注依据、量化风险。
 

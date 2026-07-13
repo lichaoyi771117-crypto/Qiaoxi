@@ -1,5 +1,5 @@
 """
-程信霖咨询 · Qiaoxi Contract-Analyzer · 商业决策辅助系统
+霖信莯咨询 · Qiaoxi Contract-Analyzer · 商业决策辅助系统
 """
 import os, json, time, tempfile, traceback, threading, logging, re as _re
 from datetime import datetime
@@ -24,7 +24,7 @@ from src.security import (
     AuditLogger, deep_sanitize_contract_text, USER_CONSENT_TEMPLATE, sanitize_pii,
 )
 
-st.set_page_config(page_title="程信霖 · 商业合同审查", page_icon="⚖️", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="霖信莯 · 商业合同审查", page_icon="⚖️", layout="wide", initial_sidebar_state="collapsed")
 llm = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
 
 st.markdown("""<style>
@@ -56,15 +56,15 @@ st.markdown("""<style>
 })();
 </script>
 <div class="main-header">
-    <h1>⚖️ 程信霖 · 商业合同审查系统</h1>
-    <p>程信霖咨询 ｜ Qiaoxi Contract-Analyzer ｜ 商业决策辅助系统</p>
+    <h1>⚖️ 霖信莯 · 商业合同审查系统</h1>
+    <p>霖信莯咨询 ｜ Qiaoxi Contract-Analyzer ｜ 商业决策辅助系统</p>
 </div>
 """, unsafe_allow_html=True)
 
 # ─── Session State ───
 DEFAULTS = {
-    "phase": "payment",
-    "base_paid": False,          # 基础服务付费验证
+    "phase": "consent",
+    "base_paid": True,           # 收费机制已屏蔽（会员授权码由协会网站统一管控），保持机制代码不动
     "uploaded_file": None, "uploaded_file_path": None,
     "contract_summary": None, "clause_tree": None,
     "contract_raw": None,
@@ -87,7 +87,7 @@ DEFAULTS = {
     "reconstruct_requested": False,
     "reconstruct_angle": None,
     "reconstruct_outputs": None,
-    "reconstruct_paid": False,
+    "reconstruct_paid": True,   # 收费机制已屏蔽，重构功能直接可用
 }
 for k, v in DEFAULTS.items():
     if k not in st.session_state:
@@ -99,7 +99,8 @@ logger = logging.getLogger("qiaoxi.app")
 # ─── 底部免责声明 ───
 st.markdown("""<div class="footer">
     ⚠️ 本系统为商业决策 <b>辅助</b> 工具，不构成正式法律意见或投资建议。最终决策由用户自行做出。<br/>
-    云南程信霖信息咨询有限公司 ｜ 合同文件存储于本地服务器 ｜ 程信霖 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息 ｜ 联系电话及邮箱待提供
+    昆明霖信莯科技有限公司 ｜ 合同文件存储于本地服务器 ｜ 霖信莯 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息<br/>
+    <span style="color:#888;font-size:11px;">系统开发人员：李屹泉（身份证号：530111200801227358，联系电话：18987688373）</span>
 </div>""", unsafe_allow_html=True)
 
 
@@ -378,7 +379,7 @@ _phase = st.session_state.phase
 if _phase == "payment":
 
     st.markdown("### 💳 服务付款")
-    st.markdown("使用 **程信霖 · Qiaoxi 商业合同审查系统** 需支付基础服务费。付款后获得本次审查服务的使用授权码，输入后即可进入系统。")
+    st.markdown("使用 **霖信莯 · Qiaoxi 商业合同审查系统** 需支付基础服务费。付款后获得本次审查服务的使用授权码，输入后即可进入系统。")
 
     st.divider()
 
@@ -456,7 +457,7 @@ if _phase == "payment":
             else:
                 st.error("授权码无效。请确认付款已完成并联系客服获取正确的授权码。")
 
-    st.caption("如需发票或企业批量采购报价，请联系程信霖咨询。")
+    st.caption("如需发票或企业批量采购报价，请联系霖信莯咨询。")
 
 
 # ╔══════════════════════════════════════════════════════════════╗
@@ -478,7 +479,7 @@ elif _phase == "consent":
 
     c1 = st.checkbox("我确认已阅读并理解上述数据安全措施", key="consent_security")
     c2 = st.checkbox("我确认已知悉本系统为商业决策辅助工具，不构成正式法律意见", key="consent_disclaimer")
-    c3 = st.checkbox("我授权程信霖在本地服务器上处理我的合同文件，程信霖 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息", key="consent_authorize")
+    c3 = st.checkbox("我授权霖信莯在本地服务器上处理我的合同文件，霖信莯 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息", key="consent_authorize")
 
     if c1 and c2 and c3:
         st.success("✅ 您已同意所有条款。请点击下方按钮进入系统。")
@@ -501,7 +502,7 @@ elif _phase == "upload":
         st.stop()
 
     st.markdown("### 📄 第一步：上传合同文件")
-    st.caption("支持 PDF / DOCX。系统将先对合同执行脱敏，再让程信霖 · Qiaoxi Contract-Analyzer 系统的分析引擎读取脱敏后的内容。")
+    st.caption("支持 PDF / DOCX。系统将先对合同执行脱敏，再让霖信莯 · Qiaoxi Contract-Analyzer 系统的分析引擎读取脱敏后的内容。")
 
     uploaded_file = st.file_uploader("拖拽文件到此处，或点击浏览", type=["pdf", "docx"], key="contract_upload")
     do_parse = st.button("📤 上传并开始脱敏分析", type="primary", use_container_width=True)
@@ -551,11 +552,11 @@ elif _phase == "upload":
 elif _phase == "profile_r1":
 
     st.markdown("### 📋 第二步：客户画像 · 第一轮")
-    st.caption("以下问题是程信霖 · Qiaoxi Contract-Analyzer 根据脱敏后的合同内容针对性生成的。分析引擎无法看到具体公司名或人名。")
+    st.caption("以下问题是霖信莯 · Qiaoxi Contract-Analyzer 根据脱敏后的合同内容针对性生成的。分析引擎无法看到具体公司名或人名。")
 
     try:
         if st.session_state.r1_questions is None:
-            with st.spinner("程信霖 · Qiaoxi Contract-Analyzer 正在根据脱敏合同内容生成针对性问题..."):
+            with st.spinner("霖信莯 · Qiaoxi Contract-Analyzer 正在根据脱敏合同内容生成针对性问题..."):
                 st.session_state.r1_questions = _generate_r1_questions(st.session_state.contract_summary)
 
         r1q = st.session_state.r1_questions
@@ -898,8 +899,8 @@ elif _phase == "processing":
 
 > **报告日期**: {datetime.now().strftime('%Y年%m月%d日')}
 > **合同文件**: {fn}
-> **出具方**: 程信霖信息咨询
-> **隐私声明**: 本报告基于脱敏处理后的合同内容生成。程信霖 Qiaoxi 分析引擎在分析过程中仅接触脱敏后的信息，未获取原始合同中的具体公司名称、自然人名、证件号或精确金额。
+> **出具方**: 霖信莯信息咨询
+> **隐私声明**: 本报告基于脱敏处理后的合同内容生成。霖信莯 Qiaoxi 分析引擎在分析过程中仅接触脱敏后的信息，未获取原始合同中的具体公司名称、自然人名、证件号或精确金额。
 
 ---
 
@@ -1087,7 +1088,7 @@ elif _phase == "processing":
         report += f"""
 ## 四、法律风险分析
 
-以下风险分析由程信霖合同审查系统基于中国现行法律法规数据库完成。风险等级分为三级：高风险（需优先处理）、中风险（建议关注）、低风险（可酌情处理）。
+以下风险分析由霖信莯合同审查系统基于中国现行法律法规数据库完成。风险等级分为三级：高风险（需优先处理）、中风险（建议关注）、低风险（可酌情处理）。
 
 """
         # 高风险
@@ -1147,7 +1148,7 @@ elif _phase == "processing":
         report += f"""
 ## 五、商业风险深度透视
 
-程信霖内部采用了多视角交叉审查的方法，从资本安全、风控专业、行业经验、交易结构、运营落地和反面论证五个角度对合同进行了全面审查。以下是综合审查意见的汇总：
+霖信莯内部采用了多视角交叉审查的方法，从资本安全、风控专业、行业经验、交易结构、运营落地和反面论证五个角度对合同进行了全面审查。以下是综合审查意见的汇总：
 
 """
         # 综合六位评审员输出为一篇连贯文本
@@ -1202,7 +1203,7 @@ elif _phase == "processing":
 
         # 清理 internal 内容
         if "李超逸" in detailed_order:
-            detailed_order = detailed_order.replace("李超逸", "程信霖")
+            detailed_order = detailed_order.replace("李超逸", "霖信莯")
         if "VETO_" in detailed_order:
             # 移除内部 veto 代码
             detailed_order = _re.sub(r'VETO_[^\s]*', '', detailed_order)
@@ -1240,7 +1241,7 @@ elif _phase == "processing":
         report += f"""
 ## 七、免责声明
 
-> **本报告为程信霖信息咨询基于 Qiaoxi Contract-Analyzer 系统生成的商业决策辅助分析，不构成正式的法律意见、财务建议或投资建议。**
+> **本报告为霖信莯信息咨询基于 Qiaoxi Contract-Analyzer 系统生成的商业决策辅助分析，不构成正式的法律意见、财务建议或投资建议。**
 >
 > 报告中的法律风险分析基于系统内置的中国法律法规数据库，该数据库力求准确但可能存在更新延迟或个别条文解读偏差。报告中的商业分析和推演基于系统对合同文本的自动化解析，不可避免地存在信息不完整的局限。
 >
@@ -1249,11 +1250,11 @@ elif _phase == "processing":
 > - 对交易对手的资质、资产权属等进行独立的尽职调查
 > - 结合您自身的商业经验和判断做出最终决策
 >
-> 程信霖不对因使用本报告而产生的任何商业后果承担责任。
+> 霖信莯不对因使用本报告而产生的任何商业后果承担责任。
 
 ---
 
-**云南程信霖信息咨询有限公司**
+**昆明霖信莯科技有限公司**
 *本报告由 Qiaoxi Contract-Analyzer 自动生成*
 *报告日期：{datetime.now().strftime('%Y年%m月%d日')}*
 """
@@ -1354,7 +1355,7 @@ elif _phase == "results":
 
 **收费标准：** ¥30 / 次（含三份文件的生成与一次修改）
 
-如需购买服务，请联系程信霖咨询获取授权码：
+如需购买服务，请联系霖信莯咨询获取授权码：
 📞 **联系人：余磊 13987671259** ｜ 📧 **邮箱：425448719@qq.com**
 """)
 
@@ -1394,7 +1395,7 @@ elif _phase == "results":
                     st.session_state.reconstruct_paid = True
                     st.rerun()
                 else:
-                    st.error("授权码无效，请联系程信霖咨询获取正式授权码。")
+                    st.error("授权码无效，请联系霖信莯咨询获取正式授权码。")
 
     if st.session_state.reconstruct_paid:
         st.success("✅ 已解锁 Qiaoxi 合同重构服务")
@@ -1444,14 +1445,14 @@ elif _phase == "results":
             st.session_state.delete_requested = True
             st.rerun()
     else:
-        st.success("✅ 您的合同文件和中间态数据已从服务器上删除。感谢使用程信霖 Qiaoxi。")
+        st.success("✅ 您的合同文件和中间态数据已从服务器上删除。感谢使用霖信莯 Qiaoxi。")
         st.info("如需重新使用本系统，请手动刷新页面。")
 
     st.divider()
     if st.button("🔄 开始新的审查", type="secondary", use_container_width=True):
         for k in list(st.session_state.keys()):
             del st.session_state[k]
-        st.session_state.phase = "payment"
+        st.session_state.phase = "consent"
         st.rerun()
         st.rerun()
 
@@ -1555,7 +1556,7 @@ elif _phase == "reconstruct_done":
     st.divider()
 
     def _recon_docx(md_text: str, doc_title: str) -> bytes:
-        header = f"# {doc_title}\n\n*生成方向：{angle}*\n*生成时间：{datetime.now().strftime('%Y年%m月%d日 %H:%M')}*\n*程信霖咨询 · Qiaoxi Contract-Analyzer*\n\n---\n\n"
+        header = f"# {doc_title}\n\n*生成方向：{angle}*\n*生成时间：{datetime.now().strftime('%Y年%m月%d日 %H:%M')}*\n*霖信莯咨询 · Qiaoxi Contract-Analyzer*\n\n---\n\n"
         return _markdown_to_docx(header + (md_text or "（内容未生成）"))
 
     # 动态三列，跳过不需要的文件

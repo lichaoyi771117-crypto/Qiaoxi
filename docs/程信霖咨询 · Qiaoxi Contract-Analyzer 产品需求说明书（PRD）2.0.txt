@@ -1,7 +1,7 @@
-# 程信霖咨询 · Qiaoxi Contract-Analyzer 产品需求说明书（PRD）
+# 霖信莯咨询 · Qiaoxi Contract-Analyzer 产品需求说明书（PRD）
 
 > **项目代号**：Qiaoxi（乔曦）  
-> **全称**：程信霖咨询 · 商业合同审查与决策重构系统  
+> **全称**：霖信莯咨询 · 商业合同审查与决策重构系统  
 > **文档编号**：CHANGR-PRD-Qiaoxi-2026002  
 > **版本**：v2.0  
 > **编制**：Kimi（程序架构师）  

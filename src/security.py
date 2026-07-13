@@ -71,7 +71,7 @@ def mask_bank_card(card: Optional[str]) -> str:
 
 
 def mask_company_name(text: str) -> str:
-    """公司名称脱敏: 保留地域前缀，其余打码。如 '云南程信霖信息咨询有限公司' -> '云南***有限公司'"""
+    """公司名称脱敏: 保留地域前缀，其余打码。如 '昆明霖信莯科技有限公司' -> '云南***有限公司'"""
     # 匹配已知公司名后缀
     suffixes = [
         '有限公司', '有限责任公司', '股份有限公司', '集团有限公司',
@@ -278,17 +278,17 @@ class AuditLogger:
 
 USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",SimSun,serif; font-size:14px; line-height:2.0; color:#222; max-width:900px; margin:0 auto;'>
 
-<h2 style='text-align:center; font-size:20px; font-weight:bold; margin-bottom:8px;'>程信霖咨询 · Qiaoxi Contract-Analyzer<br/>用户授权与服务协议</h2>
+<h2 style='text-align:center; font-size:20px; font-weight:bold; margin-bottom:8px;'>霖信莯咨询 · Qiaoxi Contract-Analyzer<br/>用户授权与服务协议</h2>
 
 <p style='text-align:center; font-size:12px; color:#888; margin-bottom:24px;'>
 版本：v1.0 &nbsp;|&nbsp; 更新日期：2026年6月6日 &nbsp;|&nbsp; 生效日期：2026年6月6日<br/>
-运营主体：云南程信霖信息咨询有限公司（以下简称"程信霖"或"本公司"）
+运营主体：昆明霖信莯科技有限公司（以下简称"霖信莯"或"本公司"）
 </p>
 
 <div style='background:#fff3e0; border-left:4px solid #e65100; padding:16px; margin:16px 0; border-radius:4px;'>
 <p style='font-weight:bold; color:#e65100; margin:0 0 8px 0;'>⚠️ 重要提示</p>
 <p style='margin:0;'><b>尊敬的用户</b>：</p>
-<p style='margin:4px 0;'>感谢您选择程信霖咨询开发的 Qiaoxi Contract-Analyzer 商业合同审查系统（以下简称"本系统"或"Qiaoxi"）。本系统是一款基于人工智能技术的商业合同审查与决策辅助工具。</p>
+<p style='margin:4px 0;'>感谢您选择霖信莯咨询开发的 Qiaoxi Contract-Analyzer 商业合同审查系统（以下简称"本系统"或"Qiaoxi"）。本系统是一款基于人工智能技术的商业合同审查与决策辅助工具。</p>
 <p style='margin:4px 0;'><b style='color:#d32f2f;'>请您在使用本系统之前，仔细阅读并充分理解本协议的全部条款，特别是以加粗、标红、高亮等方式显著标注的条款。您通过网络页面点击勾选或以其他方式确认本协议，即表示您已阅读、理解并同意接受本协议所有条款的约束。如果您不同意本协议的任何条款，请勿使用本系统。</b></p>
 <p style='margin:4px 0;'><b style='color:#d32f2f;'>本系统输出的分析报告仅供商业决策参考，不构成正式的法律意见、财务建议或投资建议。如果您需要具有法律效力的专业意见，请咨询持有相应资质的执业律师、会计师或其他专业人士。</b></p>
 <p style='margin:4px 0;'><b>本协议适用中华人民共和国法律。</b></p>
@@ -296,14 +296,14 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第一条 定义与解释</h3>
 
-<p><b>1.1 本系统</b>：指程信霖开发并运营的"Qiaoxi Contract-Analyzer 商业合同审查系统"，包括其全部功能模块、算法模型、用户界面及相关文档。</p>
-<p><b>1.2 用户</b>：指通过程信霖提供的访问途径使用本系统的自然人、法人或非法人组织。本协议中,"用户"与"您"具有相同含义。</p>
+<p><b>1.1 本系统</b>：指霖信莯开发并运营的"Qiaoxi Contract-Analyzer 商业合同审查系统"，包括其全部功能模块、算法模型、用户界面及相关文档。</p>
+<p><b>1.2 用户</b>：指通过霖信莯提供的访问途径使用本系统的自然人、法人或非法人组织。本协议中,"用户"与"您"具有相同含义。</p>
 <p><b>1.3 合同文件</b>：指用户上传至本系统的 PDF、DOCX 或图片格式的合同文本、协议文件及相关附件。</p>
 <p><b>1.4 输出报告</b>：指本系统基于用户上传的合同文件，通过人工智能算法处理后生成的《商业决策报告》及其他分析输出物。</p>
 <p><b>1.5 脱敏处理</b>：指本系统在将合同内容发送给人工智能模型（包括但不限于 DeepSeek API）进行分析之前，自动对合同中包含的自然人姓名、公司全称、身份证号、手机号码、银行卡号、统一社会信用代码、精确地址、精确金额数字等个人身份信息（PII）和商业秘密信息进行不可逆的匿名化、模糊化或替代化处理的技术措施。</p>
 <p><b>1.6 中间态数据</b>：指本系统在处理合同文件的过程中生成的、介于原始文件与最终输出报告之间的所有临时性结构化数据（包括但不限于 JSON 格式的条款树、审查中间结果等）。</p>
 <p><b>1.7 人工智能模型/AI模型</b>：指本系统调用的第三方大语言模型（包括但不限于 DeepSeek API），用于执行合同文本分析、法律风险识别、商业逻辑推理等任务。<b style='color:#c62828;'>AI 模型仅接收经过脱敏处理后的合同内容</b>。</p>
-<p><b>1.8 不可抗力</b>：指不能预见、不能避免并不能克服的客观情况，包括但不限于自然灾害（地震、洪水、火灾、台风等）、战争、恐怖袭击、政府行为、法律法规或政策变化、电力中断、电信网络故障、黑客攻击、计算机病毒、AI模型服务中断等超出程信霖合理控制范围的事件。</p>
+<p><b>1.8 不可抗力</b>：指不能预见、不能避免并不能克服的客观情况，包括但不限于自然灾害（地震、洪水、火灾、台风等）、战争、恐怖袭击、政府行为、法律法规或政策变化、电力中断、电信网络故障、黑客攻击、计算机病毒、AI模型服务中断等超出霖信莯合理控制范围的事件。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第二条 服务内容与范围</h3>
 
@@ -323,12 +323,12 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <p><b>2.2.4</b> 本系统当前版本（v0.1 MVP）为最小可行产品（Minimum Viable Product），其中商业模式解构（State 3）、私董会审计（State 4-5）、李超逸最终决策（State 6）等功能模块仍在开发中，以报告中的 "Phase 2 实现" 标注为准。</p>
 
 <p><b>2.3 服务可用性</b></p>
-<p>程信霖将尽商业上合理的努力保障本系统的正常运行，但<b>不对服务的持续性、及时性、无错误或无中断做出任何明示或默示的保证</b>。本系统可能因系统维护、升级、故障、网络问题或第三方服务中断等原因暂时无法使用。</p>
+<p>霖信莯将尽商业上合理的努力保障本系统的正常运行，但<b>不对服务的持续性、及时性、无错误或无中断做出任何明示或默示的保证</b>。本系统可能因系统维护、升级、故障、网络问题或第三方服务中断等原因暂时无法使用。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第三条 数据安全与隐私保护</h3>
 
 <p><b>3.1 数据本地化存储</b></p>
-<p style='background:#e8f5e9; padding:12px; border-radius:4px;'><b>用户上传的合同文件及所有处理过程中产生的中间态数据，均存储于云南程信霖信息咨询有限公司的本地服务器上。程信霖承诺，未经用户另行书面授权，不会将用户的原始合同文件上传、传输、备份、复制或以任何形式提供至任何第三方云服务平台、外部存储设备或境外服务器。</b></p>
+<p style='background:#e8f5e9; padding:12px; border-radius:4px;'><b>用户上传的合同文件及所有处理过程中产生的中间态数据，均存储于昆明霖信莯科技有限公司的本地服务器上。霖信莯承诺，未经用户另行书面授权，不会将用户的原始合同文件上传、传输、备份、复制或以任何形式提供至任何第三方云服务平台、外部存储设备或境外服务器。</b></p>
 
 <p><b>3.2 脱敏处理机制（AI 看不见您的真实信息）</b></p>
 <p style='background:#fff3e0; padding:12px; border-radius:4px;'><b>这是本系统最核心的安全措施，请用户特别关注：</b></p>
@@ -337,7 +337,7 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <table style='width:100%; border-collapse:collapse; margin:12px 0;'>
 <tr style='background:#f5f5f5;'><th style='border:1px solid #ddd; padding:8px; text-align:left;'>信息类型</th><th style='border:1px solid #ddd; padding:8px; text-align:left;'>脱敏方式</th><th style='border:1px solid #ddd; padding:8px; text-align:left;'>示例</th></tr>
 <tr><td style='border:1px solid #ddd; padding:8px;'>自然人姓名</td><td style='border:1px solid #ddd; padding:8px;'>部分打码</td><td style='border:1px solid #ddd; padding:8px;'>"张三" → "张*"、"李四明" → "李*明"</td></tr>
-<tr><td style='border:1px solid #ddd; padding:8px;'>公司/机构全称</td><td style='border:1px solid #ddd; padding:8px;'>匿名化替换</td><td style='border:1px solid #ddd; padding:8px;'>"云南程信霖信息咨询有限公司" → "【公司A】"</td></tr>
+<tr><td style='border:1px solid #ddd; padding:8px;'>公司/机构全称</td><td style='border:1px solid #ddd; padding:8px;'>匿名化替换</td><td style='border:1px solid #ddd; padding:8px;'>"昆明霖信莯科技有限公司" → "【公司A】"</td></tr>
 <tr><td style='border:1px solid #ddd; padding:8px;'>身份证号</td><td style='border:1px solid #ddd; padding:8px;'>部分打码</td><td style='border:1px solid #ddd; padding:8px;'>"440301199001011234" → "440301********1234"</td></tr>
 <tr><td style='border:1px solid #ddd; padding:8px;'>手机号码</td><td style='border:1px solid #ddd; padding:8px;'>部分打码</td><td style='border:1px solid #ddd; padding:8px;'>"13812345678" → "138****5678"</td></tr>
 <tr><td style='border:1px solid #ddd; padding:8px;'>银行卡号</td><td style='border:1px solid #ddd; padding:8px;'>部分打码</td><td style='border:1px solid #ddd; padding:8px;'>"6222021234567890" → "6222 **** **** 7890"</td></tr>
@@ -347,7 +347,7 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <tr><td style='border:1px solid #ddd; padding:8px;'>电子邮箱</td><td style='border:1px solid #ddd; padding:8px;'>完全替换</td><td style='border:1px solid #ddd; padding:8px;'>"example@company.com" → "[已脱敏-邮箱]"</td></tr>
 </table>
 
-<p style='background:#c62828; color:#fff; padding:12px; border-radius:4px;'><b>程信霖特别声明：AI 模型（DeepSeek API）在整个分析过程中，仅能接触到上述脱敏后的文本内容。AI 模型无法获知原始合同中包含的任何自然人姓名、公司全称、证件号码、联系方式、精确地址或精确金额。</b></p>
+<p style='background:#c62828; color:#fff; padding:12px; border-radius:4px;'><b>霖信莯特别声明：AI 模型（DeepSeek API）在整个分析过程中，仅能接触到上述脱敏后的文本内容。AI 模型无法获知原始合同中包含的任何自然人姓名、公司全称、证件号码、联系方式、精确地址或精确金额。</b></p>
 
 <p><b>3.3 文件自动删除机制</b></p>
 <ul>
@@ -362,10 +362,10 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <p>所有在本地服务器上存储的中间态分析数据（JSON 格式）均使用 <b>AES-256</b> 加密算法进行加密存储。解密密钥通过环境变量注入，不硬编码于系统源代码中，不随源代码一起进行版本管理。</p>
 
 <p><b>3.5 数据传输安全</b></p>
-<p>本系统与 AI 模型（DeepSeek API）之间的数据传输采用 <b>TLS 1.3</b> 加密协议。程信霖仅向 DeepSeek API 发送<b>已经过脱敏处理的合同文本片段</b>，不发送原始合同全文。每次 API 调用完成后，发送的上下文立即释放，不在 DeepSeek 服务器端持久化存储。</p>
+<p>本系统与 AI 模型（DeepSeek API）之间的数据传输采用 <b>TLS 1.3</b> 加密协议。霖信莯仅向 DeepSeek API 发送<b>已经过脱敏处理的合同文本片段</b>，不发送原始合同全文。每次 API 调用完成后，发送的上下文立即释放，不在 DeepSeek 服务器端持久化存储。</p>
 
 <p><b>3.6 无人工查阅</b></p>
-<p>在系统自动处理流程中，程信霖的任何员工、顾问或关联方<b>均不会主动查阅、复制、截取或转发用户上传的原始合同文件</b>。仅在以下例外情形下，经用户明确书面授权，程信霖授权技术人员可临时访问已脱敏的数据以排查系统故障：</p>
+<p>在系统自动处理流程中，霖信莯的任何员工、顾问或关联方<b>均不会主动查阅、复制、截取或转发用户上传的原始合同文件</b>。仅在以下例外情形下，经用户明确书面授权，霖信莯授权技术人员可临时访问已脱敏的数据以排查系统故障：</p>
 <ul>
 <li>（1）用户主动报告系统错误，并书面请求人工介入排查；</li>
 <li>（2）系统触发 HANDOFF_TO_HUMAN 机制，且用户选择同意人工顾问介入。</li>
@@ -377,9 +377,9 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <ul>
 <li>（1）在使用过程中查看本系统正在处理的数据的阶段状态；</li>
 <li>（2）点击"结束服务"按钮立即触发数据删除；</li>
-<li>（3）通过本协议第十三条列明的联系方式，向程信霖提交数据查阅、更正或删除的书面请求。</li>
+<li>（3）通过本协议第十三条列明的联系方式，向霖信莯提交数据查阅、更正或删除的书面请求。</li>
 </ul>
-<p>程信霖将在收到书面请求后 <b>15 个工作日内</b>予以响应。</p>
+<p>霖信莯将在收到书面请求后 <b>15 个工作日内</b>予以响应。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第四条 AI 使用条款</h3>
 
@@ -388,7 +388,7 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <ul>
 <li><b>（1）"幻觉"风险</b>：AI 模型可能生成与事实不符、与法律条文不符或逻辑不一致的内容。尽管本系统已采取本地法规 RAG 检索、正则校验、已废止法律过滤等多重措施来减少幻觉，但仍无法完全消除该风险。</li>
 <li><b>（2）训练数据偏差</b>：AI 模型基于特定时间点之前的训练数据，可能无法反映最新的法律法规变化、司法实践动态或行业惯例。</li>
-<li><b>（3）非确定性输出</b>：相同的输入可能在不同时间产生不同的输出。AI 模型的输出具有非确定性，程信霖不对输出的可复现性做出保证。</li>
+<li><b>（3）非确定性输出</b>：相同的输入可能在不同时间产生不同的输出。AI 模型的输出具有非确定性，霖信莯不对输出的可复现性做出保证。</li>
 </ul>
 
 <p><b>4.2 用户自行判断的义务</b></p>
@@ -403,15 +403,15 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <li>（4）任何违反中华人民共和国法律、行政法规、部门规章或地方性法规的活动；</li>
 <li>（5）绕过、移除或试图绕过本系统的安全措施（包括但不限于脱敏机制、访问控制、审计日志）。</li>
 </ul>
-<p>如用户违反上述禁止条款，程信霖有权立即终止向该用户提供服务，并保留追究其法律责任的权利。</p>
+<p>如用户违反上述禁止条款，霖信莯有权立即终止向该用户提供服务，并保留追究其法律责任的权利。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第五条 知识产权</h3>
 
 <p><b>5.1 本系统的知识产权</b></p>
-<p>本系统（包括但不限于其源代码、算法设计、架构设计、用户界面设计、Prompt 模板、报告模板、商标、标识、文档等）的全部知识产权及相关权益归属程信霖所有，受《中华人民共和国著作权法》《中华人民共和国商标法》《中华人民共和国专利法》及相关国际知识产权条约的保护。</p>
+<p>本系统（包括但不限于其源代码、算法设计、架构设计、用户界面设计、Prompt 模板、报告模板、商标、标识、文档等）的全部知识产权及相关权益归属霖信莯所有，受《中华人民共和国著作权法》《中华人民共和国商标法》《中华人民共和国专利法》及相关国际知识产权条约的保护。</p>
 
 <p><b>5.2 用户上传内容</b></p>
-<p>用户对其上传的合同文件保留全部原始权利。用户授予程信霖一项<b>有限的、不可转让的、免许可费的许可</b>，仅用于：</p>
+<p>用户对其上传的合同文件保留全部原始权利。用户授予霖信莯一项<b>有限的、不可转让的、免许可费的许可</b>，仅用于：</p>
 <ul>
 <li>（1）在本系统的自动化处理流程中解析、脱敏、分析用户上传的合同文件；</li>
 <li>（2）生成并向用户展示分析结果；</li>
@@ -420,7 +420,7 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <p>本节所述的许可在用户点击"结束服务"或数据自动过期删除后自动终止。</p>
 
 <p><b>5.3 输出报告的权利</b></p>
-<p>本系统生成的《商业决策报告》及相关输出物的知识产权归属程信霖所有。用户有权为了自身的商业决策目的查看、下载、打印、存档该等输出报告，但<b>不得</b>：</p>
+<p>本系统生成的《商业决策报告》及相关输出物的知识产权归属霖信莯所有。用户有权为了自身的商业决策目的查看、下载、打印、存档该等输出报告，但<b>不得</b>：</p>
 <ul>
 <li>（1）将输出报告转售、再许可或提供给与本次交易无关的第三方用于商业目的；</li>
 <li>（2）声称输出报告构成正式法律意见或专业咨询意见；</li>
@@ -454,52 +454,52 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 <p><b>用户如需获得具有法律约束力的专业意见，应咨询持有相应执业资质的执业律师。用户如需获得专业的财务或税务意见，应咨询持有相应资质的注册会计师或税务师。</b></p>
 
 <p><b>7.3 第三方 AI 模型的免责</b></p>
-<p>本系统依赖第三方 AI 模型（DeepSeek API）执行核心分析任务。程信霖不对 DeepSeek API 的可用性、响应质量、生成内容的准确性或合规性做出任何保证。若因 DeepSeek API 服务中断、降级、变更或停止而导致本系统无法正常提供服务，程信霖不承担由此产生的任何责任。</p>
+<p>本系统依赖第三方 AI 模型（DeepSeek API）执行核心分析任务。霖信莯不对 DeepSeek API 的可用性、响应质量、生成内容的准确性或合规性做出任何保证。若因 DeepSeek API 服务中断、降级、变更或停止而导致本系统无法正常提供服务，霖信莯不承担由此产生的任何责任。</p>
 
 <p><b>7.4 责任限制</b></p>
-<p style='background:#ffebee; padding:12px; border-radius:4px;'><b>在适用法律允许的最大范围内，程信霖在任何情况下均不对因使用或无法使用本系统而产生的任何间接损失、附带损失、特殊损失、惩罚性损失或结果性损失承担责任，包括但不限于：</b></p>
+<p style='background:#ffebee; padding:12px; border-radius:4px;'><b>在适用法律允许的最大范围内，霖信莯在任何情况下均不对因使用或无法使用本系统而产生的任何间接损失、附带损失、特殊损失、惩罚性损失或结果性损失承担责任，包括但不限于：</b></p>
 <ul style='background:#ffebee; padding:12px 12px 12px 32px; border-radius:4px; margin-top:-12px;'>
 <li><b>（1）商业机会损失、利润损失、收入损失、商誉损失；</b></li>
-<li><b>（2）数据丢失或损坏（但本协议另有约定或程信霖故意或重大过失造成的除外）；</b></li>
+<li><b>（2）数据丢失或损坏（但本协议另有约定或霖信莯故意或重大过失造成的除外）；</b></li>
 <li><b>（3）因用户依赖本系统输出而做出的任何商业决策所造成的损失或不利后果；</b></li>
 <li><b>（4）任何第三方索赔。</b></li>
 </ul>
-<p><b>在适用法律允许的最大范围内，程信霖就本协议项下所有索赔的累计赔偿责任总额，以人民币壹仟元（¥1,000.00）或用户在前十二（12）个月内向程信霖实际支付的服务费用总额（以较高者为准）为上限。</b></p>
+<p><b>在适用法律允许的最大范围内，霖信莯就本协议项下所有索赔的累计赔偿责任总额，以人民币壹仟元（¥1,000.00）或用户在前十二（12）个月内向霖信莯实际支付的服务费用总额（以较高者为准）为上限。</b></p>
 
 <p><b>7.5 不可抗力</b></p>
-<p>因不可抗力导致本系统无法正常提供服务的，程信霖将在不可抗力影响范围内免于承担违约责任。</p>
+<p>因不可抗力导致本系统无法正常提供服务的，霖信莯将在不可抗力影响范围内免于承担违约责任。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第八条 违约责任</h3>
 
-<p><b>8.1</b> 如用户违反本协议第六条的义务与承诺，程信霖有权：（1）发出书面警告；（2）暂停或终止服务；（3）要求赔偿直接损失（含合理律师费、诉讼费）。</p>
-<p><b>8.2</b> 用户同意，因其上传内容违法或侵权导致程信霖遭受第三方索赔的，用户应赔偿程信霖全部损失。</p>
+<p><b>8.1</b> 如用户违反本协议第六条的义务与承诺，霖信莯有权：（1）发出书面警告；（2）暂停或终止服务；（3）要求赔偿直接损失（含合理律师费、诉讼费）。</p>
+<p><b>8.2</b> 用户同意，因其上传内容违法或侵权导致霖信莯遭受第三方索赔的，用户应赔偿霖信莯全部损失。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第九条 协议的变更与终止</h3>
 
-<p><b>9.1</b> 程信霖有权根据法律法规变化或业务需要修订本协议。修订版本将在系统界面公示。用户不同意修订的应停止使用；继续使用视为接受。</p>
-<p><b>9.2</b> 用户可随时点击"结束服务"终止本协议。程信霖可在用户严重违约、从事违法活动或决定永久停止服务时（提前30日公告）终止本协议。</p>
+<p><b>9.1</b> 霖信莯有权根据法律法规变化或业务需要修订本协议。修订版本将在系统界面公示。用户不同意修订的应停止使用；继续使用视为接受。</p>
+<p><b>9.2</b> 用户可随时点击"结束服务"终止本协议。霖信莯可在用户严重违约、从事违法活动或决定永久停止服务时（提前30日公告）终止本协议。</p>
 <p><b>9.3</b> 本协议终止后，第四条（AI使用条款）、第五条（知识产权）、第七条（免责声明）、第十条（法律适用与争议解决）继续有效。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第十条 法律适用与争议解决</h3>
 
 <p><b>10.1</b> 本协议适用<b>中华人民共和国法律</b>（不包括香港、澳门、台湾地区法律）。</p>
-<p><b>10.2</b> 争议应首先友好协商。协商不成的，任何一方有权向<b>云南程信霖信息咨询有限公司所在地有管辖权的人民法院</b>提起诉讼。</p>
+<p><b>10.2</b> 争议应首先友好协商。协商不成的，任何一方有权向<b>昆明霖信莯科技有限公司所在地有管辖权的人民法院</b>提起诉讼。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第十一条 通知与送达</h3>
 
-<p>程信霖向用户发出的通知可通过系统界面公告或电子邮件发送，发布/发送之日视为送达。用户向程信霖发出的通知应通过第十三条列明的联系方式送达。</p>
+<p>霖信莯向用户发出的通知可通过系统界面公告或电子邮件发送，发布/发送之日视为送达。用户向霖信莯发出的通知应通过第十三条列明的联系方式送达。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第十二条 其他条款</h3>
 
 <p><b>12.1</b> 本协议构成双方就本协议主题事项达成的完整协议，取代此前所有口头或书面的约定和声明。</p>
-<p><b>12.2</b> 程信霖未行使任何权利不应被视为放弃该等权利。</p>
-<p><b>12.3</b> 用户不得未经程信霖书面同意转让本协议项下权利义务。程信霖可将本协议转让给其关联公司或业务继承者。</p>
+<p><b>12.2</b> 霖信莯未行使任何权利不应被视为放弃该等权利。</p>
+<p><b>12.3</b> 用户不得未经霖信莯书面同意转让本协议项下权利义务。霖信莯可将本协议转让给其关联公司或业务继承者。</p>
 <p><b>12.4</b> 本协议任何条款被认定无效的，不影响其他条款效力。双方应诚信协商以合法有效的替代条款取代原条款。</p>
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第十三条 联系方式</h3>
 
 <table style='width:100%; border-collapse:collapse; margin:12px 0;'>
-<tr><td style='border:1px solid #ddd; padding:8px; font-weight:bold; width:120px;'>运营主体</td><td style='border:1px solid #ddd; padding:8px;'>云南程信霖信息咨询有限公司</td></tr>
+<tr><td style='border:1px solid #ddd; padding:8px; font-weight:bold; width:120px;'>运营主体</td><td style='border:1px solid #ddd; padding:8px;'>昆明霖信莯科技有限公司</td></tr>
 <tr><td style='border:1px solid #ddd; padding:8px; font-weight:bold;'>联系人</td><td style='border:1px solid #ddd; padding:8px;'>余磊</td></tr>
 <tr><td style='border:1px solid #ddd; padding:8px; font-weight:bold;'>联系电话</td><td style='border:1px solid #ddd; padding:8px;'>13987671259</td></tr>
 <tr><td style='border:1px solid #ddd; padding:8px; font-weight:bold;'>电子邮箱</td><td style='border:1px solid #ddd; padding:8px;'>425448719@qq.com</td></tr>
@@ -509,7 +509,7 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 
 <p style='text-align:center; font-size:12px; color:#888;'>
 <b>本协议更新日期：2026年6月6日 &nbsp;|&nbsp; 本协议生效日期：2026年6月6日</b><br/>
-&copy; 2026 云南程信霖信息咨询有限公司 保留一切权利
+&copy; 2026 昆明霖信莯科技有限公司 保留一切权利
 </p>
 
 </div>"""
