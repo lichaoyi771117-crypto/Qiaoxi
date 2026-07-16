@@ -17,7 +17,7 @@ import logging
 import time
 from typing import Optional
 from openai import OpenAI
-from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL
+from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL, LLM_TIMEOUT_SECONDS
 
 logger = logging.getLogger(__name__)
 
@@ -339,7 +339,7 @@ class ReconstructionEngine:
                     "messages": [{"role": "user", "content": prompt}],
                     "temperature": 0.4,
                     "max_tokens": max_tokens,
-                    "timeout": 180,
+                    "timeout": LLM_TIMEOUT_SECONDS,
                 }
                 if use_json:
                     kwargs["response_format"] = {"type": "json_object"}
@@ -350,7 +350,7 @@ class ReconstructionEngine:
             except Exception as e:
                 logger.error(f"[重构] {step_name} 异常: {e}")
                 if attempt >= 1:
-                    raise RuntimeError(f"{step_name} 调用失败: {e}")
+                    raise RuntimeError(f"{step_name} 调用失败，请稍后重试")
                 time.sleep(3)
         return ""
 

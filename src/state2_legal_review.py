@@ -8,7 +8,7 @@ import json
 import logging
 from openai import OpenAI
 from typing import Optional
-from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL
+from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL, LLM_TIMEOUT_SECONDS
 
 logger = logging.getLogger(__name__)
 
@@ -213,18 +213,16 @@ class QiaoxiLegalReviewer:
                 temperature=0.3,
                 max_tokens=4096,
                 response_format={"type": "json_object"},
+                timeout=LLM_TIMEOUT_SECONDS,
             )
-            result = json.loads(response.choices[0].message.content)
+            content = response.choices[0].message.content or "{}"
+            try:
+                result = json.loads(content)
+            except json.JSONDecodeError:
+                logger.error("[乔曦初审] LLM 输出非合法 JSON")
+                return {"error": "模型输出格式异常", "risks": []}
             logger.info(f"[乔曦初审] 完成，风险项: {len(result.get('risks', []))}")
             return result
         except Exception as e:
             logger.error(f"[乔曦初审] 失败: {e}")
-            return {
-                "error": str(e),
-                "risks": [],
-                "client_position_summary": "分析失败",
-                "bottom_line_violations": [],
-                "overall_client_assessment": "分析失败: " + str(e),
-                "rag_triggered": rag_results is not None,
-                "abolished_laws_blocked": 0,
-            }
+            return {"error": "模型调用失败，请稍后重试", "risks": []}

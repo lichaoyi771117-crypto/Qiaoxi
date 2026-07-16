@@ -12,7 +12,17 @@ import streamlit as st
 from openai import OpenAI
 
 from src.fsm import FSM, State
-from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL
+from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL, LLM_TIMEOUT_SECONDS
+from src.app_security import (
+    check_rate_limit,
+    validate_uploaded_file,
+    secure_delete,
+    safe_error_message,
+    verify_trial_code,
+    record_trial_usage,
+    assert_api_key_configured,
+    check_file_size,
+)
 from src.state1_parse import QiaoxiContractParser
 from src.state2_legal_review import QiaoxiLegalReviewer
 from src.state3_cld import CLDBuilder
@@ -25,7 +35,14 @@ from src.security import (
 )
 
 st.set_page_config(page_title="霖信莯 · 商业合同审查", page_icon="⚖️", layout="wide", initial_sidebar_state="collapsed")
-llm = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
+
+# ─── 启动时校验：必须配置 DeepSeek API Key ───
+try:
+    assert_api_key_configured()
+    llm = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
+except Exception as _e:
+    st.error(str(_e))
+    st.stop()
 
 st.markdown("""<style>
     .main-header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #fff; padding: 28px 32px; border-radius: 12px; margin-bottom: 24px; text-align: center; }
@@ -99,8 +116,7 @@ logger = logging.getLogger("qiaoxi.app")
 # ─── 底部免责声明 ───
 st.markdown("""<div class="footer">
     ⚠️ 本系统为商业决策 <b>辅助</b> 工具，不构成正式法律意见或投资建议。最终决策由用户自行做出。<br/>
-    昆明霖信莯科技有限公司 ｜ 合同文件存储于本地服务器 ｜ 霖信莯 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息<br/>
-    <span style="color:#888;font-size:11px;">系统开发人员：李屹泉（身份证号：530111200801227358，联系电话：18987688373）</span>
+    昆明霖信莯科技有限公司 ｜ 合同文件存储于本地服务器 ｜ 霖信莯 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息
 </div>""", unsafe_allow_html=True)
 
 
@@ -206,16 +222,12 @@ def _markdown_to_docx(md_text: str) -> bytes:
     return buf.getvalue()
 
 def _schedule_file_deletion(filepath: str, delay_seconds: int = 15):
-    """延迟删除文件（shred 级）"""
+    """延迟安全删除文件"""
     def _del():
         time.sleep(delay_seconds)
+        secure_delete(filepath)
         try:
-            if os.path.exists(filepath):
-                # shred: 覆写后删除
-                with open(filepath, 'wb') as f:
-                    f.write(os.urandom(min(os.path.getsize(filepath), 4096)))
-                os.unlink(filepath)
-                audit.log_file_deletion(os.path.basename(filepath), "service_end")
+            audit.log_file_deletion(os.path.basename(filepath), "service_end")
         except Exception:
             pass
 
@@ -252,9 +264,11 @@ def _generate_r1_questions(contract_summary):
             messages=[{"role": "system", "content": "你是乔曦，商业合同分析助理。输出严格 JSON，不要 Markdown 包裹。禁止在选项中列出具体公司名或人名。"},
                       {"role": "user", "content": prompt}],
             temperature=0.7, max_tokens=2048, response_format={"type": "json_object"},
+            timeout=LLM_TIMEOUT_SECONDS,
         )
-        return json.loads(resp.choices[0].message.content).get("questions", [])
-    except Exception:
+        content = resp.choices[0].message.content or "{}"
+        return json.loads(content).get("questions", [])
+    except (json.JSONDecodeError, Exception):
         return [
             {"id": "Q1", "title": "合同身份", "question": "您在本合同中的身份是？",
              "options": ["甲方/收购方", "乙方/出售方", "丙方/担保方", "其他缔约方"]},
@@ -298,8 +312,10 @@ def _generate_r2_questions(contract_summary, r1_answers, r1_questions):
             messages=[{"role": "system", "content": "你是乔曦。输出严格 JSON。禁止列出具体公司名/人名。"},
                       {"role": "user", "content": prompt}],
             temperature=0.7, max_tokens=2048, response_format={"type": "json_object"},
+            timeout=LLM_TIMEOUT_SECONDS,
         )
-        return json.loads(resp.choices[0].message.content).get("questions", [])
+        content = resp.choices[0].message.content or "{}"
+        return json.loads(content).get("questions", [])
     except Exception:
         return [
             {"id": "Q4", "title": "风险偏好", "question": "您的风险承受能力？", "options": ["保守", "适中", "激进"]},
@@ -325,8 +341,10 @@ compromise_dims: price|schedule|governance|scope
 输出严格 JSON。"""},
                       {"role": "user", "content": answers_text}],
             temperature=0.2, max_tokens=1024, response_format={"type": "json_object"},
+            timeout=LLM_TIMEOUT_SECONDS,
         )
-        parsed = json.loads(resp.choices[0].message.content)
+        content = resp.choices[0].message.content or "{}"
+        parsed = json.loads(content)
         sl = parsed.get("strategic_layer", {})
         tl = parsed.get("tactical_layer", {})
         return {
@@ -426,36 +444,20 @@ if _phase == "payment":
     if col_btn.button("验证并进入", type="primary", use_container_width=True):
         code_input = pay_code_input.strip().upper()
 
-        # ── 先验证网站体验码 ──
-        if code_input.startswith("CXL-"):
-            try:
-                resp = _requests.post(
-                    "http://localhost:3000/api/trial/verify",
-                    json={"code": code_input},
-                    timeout=5
-                )
-                data = resp.json()
-                if data.get("valid") and data.get("remaining", {}).get("qiaoxi", 0) > 0:
-                    st.session_state.base_paid = True
-                    st.session_state.trial_code = code_input
-                    st.session_state.phase = "consent"
-                    st.rerun()
-                elif data.get("valid"):
-                    st.error("该体验码的乔曦额度已用完，请使用付费授权码。")
-                else:
-                    st.error(data.get("error", "体验码无效。"))
-            except Exception:
-                st.error("体验码验证失败，请检查网络连接或使用付费授权码。")
-        # ── 原有授权码验证 ──
+        # 增加限流：每个 session 5 次/分钟
+        if not check_rate_limit(f"auth_{st.session_state.get('_ip_key', 'default')}", max_requests=5, window_seconds=60):
+            st.error("验证次数过多，请 1 分钟后再试")
+            st.stop()
+
+        # 统一走后端体验码/授权码验证（不再本地硬编码）
+        result = verify_trial_code(code_input, product="qiaoxi")
+        if result.get("valid"):
+            st.session_state.base_paid = True
+            st.session_state.trial_code = code_input
+            st.session_state.phase = "consent"
+            st.rerun()
         else:
-            VALID_BASE_CODES = {"QIAOXI-DEMO-2024", "QIAOXI-BETA-0001", "QIAOXI-PAY-0001"}
-            if code_input in VALID_BASE_CODES:
-                st.session_state.base_paid = True
-                st.session_state.trial_code = None
-                st.session_state.phase = "consent"
-                st.rerun()
-            else:
-                st.error("授权码无效。请确认付款已完成并联系客服获取正确的授权码。")
+            st.error(result.get("error", "授权码无效"))
 
     st.caption("如需发票或企业批量采购报价，请联系霖信莯咨询。")
 
@@ -511,10 +513,23 @@ elif _phase == "upload":
         st.warning("请先上传一份合同文件。")
 
     if do_parse and uploaded_file is not None:
+        # 限流：每个 session 5 次上传 / 10 分钟
+        if not check_rate_limit(f"upload_{st.session_state.get('_ip_key', 'default')}", max_requests=5, window_seconds=600):
+            st.error("上传过于频繁，请 10 分钟后再试")
+            st.stop()
+
         try:
+            file_bytes = uploaded_file.getvalue()
+            ok, err = check_file_size(file_bytes)
+            if not ok:
+                st.error(err); st.stop()
+            ok, err = validate_uploaded_file(file_bytes, uploaded_file.name)
+            if not ok:
+                st.error(err); st.stop()
+
             ext = os.path.splitext(uploaded_file.name)[1].lower()
             with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as tmp:
-                tmp.write(uploaded_file.getvalue())
+                tmp.write(file_bytes)
                 st.session_state.uploaded_file_path = tmp.name
                 st.session_state.uploaded_file = uploaded_file
                 st.session_state.session_files.append(tmp.name)
@@ -542,7 +557,8 @@ elif _phase == "upload":
             st.session_state.phase = "profile_r1"
             st.rerun()
         except Exception as e:
-            st.error("上传/脱敏阶段出错: %s" % str(e))
+            logger.error("上传/脱敏阶段出错: %s", e, exc_info=True)
+            st.error(safe_error_message(e, "上传或解析失败，请检查文件格式后重试"))
             st.stop()
 
 
@@ -599,7 +615,8 @@ elif _phase == "profile_r1":
             st.session_state.phase = "profile_r2"
             st.rerun()
     except Exception as e:
-        st.error("第一轮画像出错: %s" % str(e))
+        st.error("第一轮画像出错，请刷新页面重试")
+        logger.error("第一轮画像出错: %s", e, exc_info=True)
         st.stop()
 
 
@@ -691,7 +708,8 @@ elif _phase == "profile_r2":
             st.session_state.phase = "processing"
             st.rerun()
     except Exception as e:
-        st.error("第二轮追问出错: %s" % str(e))
+        st.error("第二轮追问出错，请刷新页面重试")
+        logger.error("第二轮追问出错: %s", e, exc_info=True)
         st.stop()
 
 
@@ -746,7 +764,7 @@ elif _phase == "processing":
             progress_bar.progress(62, text="步骤 3/6: 商业模式解构完成（已提取因果回路 + 关键变量）")
         except Exception as e:
             logger.error(f"[State 3 CLD] 失败: {e}")
-            st.session_state.cld_report = {"loops": [], "key_variables": {}, "summary": "解构失败", "error": str(e)}
+            st.session_state.cld_report = {"loops": [], "key_variables": {}, "summary": "解构失败", "error": "商业模式解构失败，请稍后重试"}
             progress_bar.progress(62, text="步骤 3/6: 商业模式解构失败（将使用兜底数据）")
 
         # ─── State 4: 六位评审员串行审计 ───
@@ -805,7 +823,7 @@ elif _phase == "processing":
             progress_bar.progress(80, text=f"步骤 5/6: 推演完成（轨迹: {simulation_result.get('trajectory', '未知')}）")
         except Exception as e:
             logger.error(f"[State 5 Simulation] 失败: {e}")
-            st.session_state.simulation = {"snapshots": [], "trajectory": "未知", "error": str(e)}
+            st.session_state.simulation = {"snapshots": [], "trajectory": "未知", "error": "后果推演失败，请稍后重试"}
             st.session_state.debate = {"debate_minutes": "推演失败"}
             progress_bar.progress(80, text="步骤 5/6: 推演失败（将使用兜底数据）")
 
@@ -1267,7 +1285,8 @@ elif _phase == "processing":
         st.rerun()
 
     except Exception as e:
-        st.error("处理阶段出错: %s" % str(e))
+        st.error("处理阶段出错，请刷新页面重试")
+        logger.error("处理阶段出错: %s", e, exc_info=True)
         st.stop()
 
 
@@ -1278,21 +1297,13 @@ elif _phase == "results":
 
     # ── 体验码使用记录 ──
     if st.session_state.get("trial_code") and not st.session_state.get("trial_recorded"):
-        try:
-            resp = _requests.post(
-                "http://localhost:3000/api/trial/use",
-                json={"code": st.session_state.trial_code, "product": "qiaoxi"},
-                timeout=5
-            )
-            data = resp.json()
-            if data.get("success"):
-                st.session_state.trial_recorded = True
-                remaining = data.get("remaining", {})
-                st.success(f"✅ 体验已记录！乔曦剩余 {remaining.get('qiaoxi', 0)} 次 | 峤远剩余 {remaining.get('qiaoyuan', 0)} 次 | 程晓融剩余 {remaining.get('cxr', 0)} 次")
-            else:
-                st.warning(f"体验记录失败：{data.get('error', '未知错误')}")
-        except Exception:
-            st.warning("体验记录失败，请手动联系客服。")
+        result = record_trial_usage(st.session_state.trial_code, product="qiaoxi")
+        if result.get("success"):
+            st.session_state.trial_recorded = True
+            remaining = result.get("remaining", {})
+            st.success(f"✅ 体验已记录！乔曦剩余 {remaining.get('qiaoxi', 0)} 次 | 峤远剩余 {remaining.get('qiaoyuan', 0)} 次 | 程晓融剩余 {remaining.get('cxr', 0)} 次")
+        else:
+            st.warning(f"体验记录失败：{result.get('error', '请稍后重试')}")
 
     st.markdown("### 📊 审查报告")
 
@@ -1369,33 +1380,19 @@ elif _phase == "results":
         if col_btn.button("验证", use_container_width=True):
             code_input = auth_input.strip().upper()
 
-            # ── 先验证网站体验码 ──
-            if code_input.startswith("CXL-"):
-                try:
-                    resp = _requests.post(
-                        "http://localhost:3000/api/trial/verify",
-                        json={"code": code_input},
-                        timeout=5
-                    )
-                    data = resp.json()
-                    if data.get("valid") and data.get("remaining", {}).get("qiaoxi", 0) > 0:
-                        st.session_state.reconstruct_paid = True
-                        st.session_state.trial_code = code_input
-                        st.rerun()
-                    elif data.get("valid"):
-                        st.error("该体验码的乔曦额度已用完，请使用付费授权码。")
-                    else:
-                        st.error(data.get("error", "体验码无效。"))
-                except Exception:
-                    st.error("体验码验证失败，请检查网络连接或使用付费授权码。")
-            # ── 原有授权码验证 ──
+            # 限流
+            if not check_rate_limit(f"auth_{st.session_state.get('_ip_key', 'default')}", max_requests=5, window_seconds=60):
+                st.error("验证次数过多，请 1 分钟后再试")
+                st.stop()
+
+            # 统一走后端验证（不再本地硬编码）
+            result = verify_trial_code(code_input, product="qiaoxi")
+            if result.get("valid"):
+                st.session_state.reconstruct_paid = True
+                st.session_state.trial_code = code_input
+                st.rerun()
             else:
-                valid_codes = {"QIAOXI-RECON-2024", "QIAOXI-DEMO-2024", "QIAOXI-BETA-0001"}
-                if code_input in valid_codes:
-                    st.session_state.reconstruct_paid = True
-                    st.rerun()
-                else:
-                    st.error("授权码无效，请联系霖信莯咨询获取正式授权码。")
+                st.error(result.get("error", "授权码无效，请联系霖信莯咨询获取正式授权码。"))
 
     if st.session_state.reconstruct_paid:
         st.success("✅ 已解锁 Qiaoxi 合同重构服务")
@@ -1424,23 +1421,13 @@ elif _phase == "results":
     if not st.session_state.delete_requested:
         st.warning("点击下方按钮后，系统将立即从服务器上物理删除您上传的合同文件及所有中间态数据。此操作不可撤销。")
         if st.button("⏹️ 结束服务并删除我的数据", type="primary", use_container_width=True):
-            # 立即删除文件
-            import glob
+            # 立即安全删除文件
             for fp in st.session_state.session_files:
-                try:
-                    if os.path.exists(fp):
-                        with open(fp, 'wb') as f:
-                            f.write(os.urandom(min(os.path.getsize(fp), 4096)))
-                        os.unlink(fp)
-                except Exception:
-                    pass
-            for pattern in ["data/*.json"]:
-                for f in glob.glob(pattern):
-                    try:
-                        if os.path.exists(f):
-                            os.unlink(f)
-                    except Exception:
-                        pass
+                secure_delete(fp)
+            # 仅删除当前应用创建的临时 JSON，避免误删法规数据
+            import glob
+            for f in glob.glob("data/session_*.json"):
+                secure_delete(f)
             audit.log_file_deletion(st.session_state.uploaded_file.name if st.session_state.uploaded_file else "unknown", "user_request")
             st.session_state.delete_requested = True
             st.rerun()

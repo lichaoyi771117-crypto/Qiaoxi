@@ -7,10 +7,13 @@ SRC_DIR = PROJECT_ROOT / "src"
 DATA_DIR = PROJECT_ROOT / "data"
 DOCS_DIR = PROJECT_ROOT / "docs"
 
-# DeepSeek API 配置
-DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "sk-your-key-here")
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"
-DEEPSEEK_MODEL = "deepseek-chat"
+# DeepSeek API 配置（必须从环境变量读取，禁止硬编码）
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+DEEPSEEK_BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
+
+# LLM 调用默认超时（秒）
+LLM_TIMEOUT_SECONDS = 120
 
 # ChromaDB 配置（预留，当前使用纯本地关键词检索）
 CHROMA_PERSIST_DIR = str(DATA_DIR / "chroma_db")

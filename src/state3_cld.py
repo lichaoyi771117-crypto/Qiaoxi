@@ -10,7 +10,7 @@ Qiaoxi Contract-Analyzer · State 3 商业模式提取与系统动力学建模
 import json
 import logging
 from openai import OpenAI
-from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL
+from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL, LLM_TIMEOUT_SECONDS
 
 logger = logging.getLogger(__name__)
 
@@ -99,15 +99,26 @@ class CLDBuilder:
                 temperature=0.4,
                 max_tokens=4096,
                 response_format={"type": "json_object"},
+                timeout=LLM_TIMEOUT_SECONDS,
             )
-            result = json.loads(response.choices[0].message.content)
+            content = response.choices[0].message.content or "{}"
+            try:
+                result = json.loads(content)
+            except json.JSONDecodeError:
+                logger.error("[CLD] LLM 输出非合法 JSON")
+                return {
+                    "loops": [],
+                    "key_variables": {},
+                    "summary": "模型输出格式异常",
+                    "error": "模型输出格式异常",
+                }
             logger.info(f"[CLD] 构建完成: 回路数={len(result.get('loops', []))}")
             return result
         except Exception as e:
             logger.error(f"[CLD] 构建失败: {e}")
             return {
                 "loops": [],
-                "key_variables": {"cashflow": ["分析失败"], "power": ["分析失败"], "time": ["分析失败"]},
-                "summary": "商业模式解构失败: " + str(e),
-                "error": str(e),
+                "key_variables": {},
+                "summary": "商业模式解构失败，请稍后重试",
+                "error": "模型调用失败，请稍后重试",
             }

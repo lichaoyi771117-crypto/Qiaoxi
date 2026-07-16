@@ -13,3 +13,14 @@ skills/
 source code/Chinese-Dataset-Laws/
 source code/MiroFish-Offline/
 memory/
+
+# 敏感文件（凭证、密钥、测试合同、审计日志）
+Key.txt
+*.key
+token.txt
+*.token
+audit.log
+*.log
+test documents/
+data/*.json
+data/*.db

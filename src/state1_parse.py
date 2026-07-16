@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Optional
 from openai import OpenAI
 
-from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL
+from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL, LLM_TIMEOUT_SECONDS
 
 logger = logging.getLogger(__name__)
 
@@ -216,13 +216,19 @@ class QiaoxiContractParser:
                 temperature=0.3,
                 max_tokens=4096,
                 response_format={"type": "json_object"},
+                timeout=LLM_TIMEOUT_SECONDS,
             )
-            result = json.loads(response.choices[0].message.content)
+            content = response.choices[0].message.content or "{}"
+            try:
+                result = json.loads(content)
+            except json.JSONDecodeError as je:
+                logger.error(f"[风险分析] LLM 输出非合法 JSON: {je}")
+                return {"risks": [], "error": "模型输出格式异常", "rag_triggered": rag_results is not None}
             logger.info(f"[风险分析] 完成，识别风险 {len(result.get('risks', []))} 条")
             return result
         except Exception as e:
             logger.error(f"[风险分析] LLM 调用失败: {e}")
-            return {"risks": [], "error": str(e), "rag_triggered": rag_results is not None}
+            return {"risks": [], "error": "模型调用失败，请稍后重试", "rag_triggered": rag_results is not None}
 
     def parse_contract(self, file_path: str, rag_results: Optional[list[dict]] = None) -> dict:
         """

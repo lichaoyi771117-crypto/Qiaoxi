@@ -14,7 +14,7 @@ Qiaoxi Contract-Analyzer · State 6 李超逸决策引擎
 import json
 import logging
 from openai import OpenAI
-from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL
+from src.config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL, LLM_TIMEOUT_SECONDS
 
 logger = logging.getLogger(__name__)
 
@@ -230,8 +230,14 @@ class DecisionEngine:
                 temperature=0.3,
                 max_tokens=2048,
                 response_format={"type": "json_object"},
+                timeout=LLM_TIMEOUT_SECONDS,
             )
-            result = json.loads(response.choices[0].message.content)
+            content = response.choices[0].message.content or "{}"
+            try:
+                result = json.loads(content)
+            except json.JSONDecodeError:
+                logger.error("[决策] LLM 输出非合法 JSON")
+                return self._fallback_decision("模型输出格式异常")
             logger.info(f"[决策] 李超逸输出: {result.get('decision_label', '?')}")
 
             # 如果 LLM 输出 veto_override，也触发 handoff
@@ -244,7 +250,7 @@ class DecisionEngine:
 
         except Exception as e:
             logger.error(f"[决策] LLM 调用失败: {e}")
-            return self._fallback_decision(str(e))
+            return self._fallback_decision("模型调用失败，请稍后重试")
 
     def _build_council_brief(self, audits: list[dict]) -> str:
         lines = []

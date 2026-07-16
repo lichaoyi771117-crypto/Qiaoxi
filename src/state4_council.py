@@ -430,7 +430,13 @@ class CouncilRunner:
                     timeout=COUNCIL_TIMEOUT_SECONDS,
                 )
                 raw = response.choices[0].message.content or "{}"
-                result = json.loads(raw)
+                try:
+                    result = json.loads(raw)
+                except json.JSONDecodeError:
+                    logger.warning(f"[六位评审员] {role['name']} 输出非合法 JSON，重试...")
+                    if attempt >= COUNCIL_MAX_RETRIES:
+                        return self._fallback_output(role_key, role, "模型输出格式异常(已重试)")
+                    continue
                 elapsed = time.time() - t0
 
                 # 补全必需字段
@@ -448,7 +454,7 @@ class CouncilRunner:
             except Exception as e:
                 logger.error(f"[六位评审员] {role['name']} 调用异常: {e}")
                 if attempt >= COUNCIL_MAX_RETRIES:
-                    return self._fallback_output(role_key, role, f"调用异常(已重试): {str(e)}")
+                    return self._fallback_output(role_key, role, "模型调用异常(已重试)")
 
         return self._fallback_output(role_key, role, "未知错误")
 

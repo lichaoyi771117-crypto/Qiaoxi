@@ -13,7 +13,7 @@ import logging
 from openai import OpenAI
 from src.config import (
     DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_MODEL,
-    SIMULATION_TIMESLICES,
+    SIMULATION_TIMESLICES, LLM_TIMEOUT_SECONDS,
 )
 from src.state4_council import COUNCIL_ROLES
 
@@ -277,6 +277,7 @@ class DebateSynthesizer:
             ],
             temperature=0.5,
             max_tokens=1024,
+            timeout=LLM_TIMEOUT_SECONDS,
         )
         return resp.choices[0].message.content or ""
 
