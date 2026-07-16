@@ -7,8 +7,19 @@ SRC_DIR = PROJECT_ROOT / "src"
 DATA_DIR = PROJECT_ROOT / "data"
 DOCS_DIR = PROJECT_ROOT / "docs"
 
-# DeepSeek API 配置（必须从环境变量读取，禁止硬编码）
+# DeepSeek API 配置（优先从环境变量读取；兜底自动加载 Key.txt）
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+if not DEEPSEEK_API_KEY:
+    try:
+        _kf = Path(__file__).resolve().parent.parent / "Key.txt"
+        if _kf.exists():
+            for _l in _kf.read_text("utf-8").splitlines():
+                _l = _l.strip()
+                if _l.startswith("sk-"):
+                    DEEPSEEK_API_KEY = _l
+                    break
+    except Exception:
+        pass
 DEEPSEEK_BASE_URL = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
 

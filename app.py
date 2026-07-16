@@ -20,7 +20,6 @@ from src.app_security import (
     safe_error_message,
     verify_trial_code,
     record_trial_usage,
-    assert_api_key_configured,
     check_file_size,
 )
 from src.state1_parse import QiaoxiContractParser
@@ -36,13 +35,8 @@ from src.security import (
 
 st.set_page_config(page_title="霖信莯 · 商业合同审查", page_icon="⚖️", layout="wide", initial_sidebar_state="collapsed")
 
-# ─── 启动时校验：必须配置 DeepSeek API Key ───
-try:
-    assert_api_key_configured()
-    llm = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
-except Exception as _e:
-    st.error(str(_e))
-    st.stop()
+# ─── 初始化 LLM 客户端 ───
+llm = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
 
 st.markdown("""<style>
     .main-header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #fff; padding: 28px 32px; border-radius: 12px; margin-bottom: 24px; text-align: center; }
