@@ -1,5 +1,5 @@
 """
-霖信莯咨询 · Qiaoxi Contract-Analyzer · 商业决策辅助系统
+霖信莯咨询 · 合审通·AI商务合同审查 · 商业决策辅助系统
 """
 import os, json, time, tempfile, traceback, threading, logging, re as _re
 from datetime import datetime
@@ -68,7 +68,7 @@ st.markdown("""<style>
 </script>
 <div class="main-header">
     <h1>⚖️ 霖信莯 · 商业合同审查系统</h1>
-    <p>霖信莯咨询 ｜ Qiaoxi Contract-Analyzer ｜ 商业决策辅助系统</p>
+    <p>霖信莯咨询 ｜ 合审通·AI商务合同审查</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -110,7 +110,10 @@ logger = logging.getLogger("qiaoxi.app")
 # ─── 底部免责声明 ───
 st.markdown("""<div class="footer">
     ⚠️ 本系统为商业决策 <b>辅助</b> 工具，不构成正式法律意见或投资建议。最终决策由用户自行做出。<br/>
-    昆明霖信莯科技有限公司 ｜ 合同文件存储于本地服务器 ｜ 霖信莯 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息
+    昆明霖信莯科技有限公司 ｜ 合同文件存储于本地服务器 ｜ 霖信莯 · 合审通·AI商务合同审查 仅接收脱敏后的信息
+</div>
+<div style="text-align:center; font-size:11px; color:#888; margin-top:4px;">
+    开发团队：李超逸、李屹泉
 </div>""", unsafe_allow_html=True)
 
 
@@ -391,7 +394,7 @@ _phase = st.session_state.phase
 if _phase == "payment":
 
     st.markdown("### 💳 服务付款")
-    st.markdown("使用 **霖信莯 · Qiaoxi 商业合同审查系统** 需支付基础服务费。付款后获得本次审查服务的使用授权码，输入后即可进入系统。")
+    st.markdown("使用 **霖信莯 · 合审通·AI商务合同审查** 需支付基础服务费。付款后获得本次审查服务的使用授权码，输入后即可进入系统。")
 
     st.divider()
 
@@ -404,7 +407,7 @@ if _phase == "payment":
 - ✅ 法律风险全面标定（含法规 RAG 检索）
 - ✅ 商业结构与系统动力学分析
 - ✅ 六位独立评审员并行审计
-- ✅ Qiaoxi Contract-Analyzer 最终决策报告
+- ✅ 合审通·AI商务合同审查 最终决策报告
 - ✅ 完整《商业决策报告》下载（Markdown + Word）
 
 **收费标准：¥20 / 次**（单份合同，单次审查）
@@ -432,7 +435,7 @@ if _phase == "payment":
     col_code, col_btn = st.columns([3, 1])
     pay_code_input = col_code.text_input(
         "授权码", key="pay_code_input",
-        placeholder="QIAOXI-XXXX-XXXX 或 CXL-XXXX-XXXX",
+        placeholder="CXL-XXXX-XXXX",
         label_visibility="collapsed",
     )
     if col_btn.button("验证并进入", type="primary", use_container_width=True):
@@ -475,7 +478,7 @@ elif _phase == "consent":
 
     c1 = st.checkbox("我确认已阅读并理解上述数据安全措施", key="consent_security")
     c2 = st.checkbox("我确认已知悉本系统为商业决策辅助工具，不构成正式法律意见", key="consent_disclaimer")
-    c3 = st.checkbox("我授权霖信莯在本地服务器上处理我的合同文件，霖信莯 · Qiaoxi Contract-Analyzer 仅接收脱敏后的信息", key="consent_authorize")
+    c3 = st.checkbox("我授权霖信莯在本地服务器上处理我的合同文件，霖信莯 · 合审通·AI商务合同审查 仅接收脱敏后的信息", key="consent_authorize")
 
     if c1 and c2 and c3:
         st.success("✅ 您已同意所有条款。请点击下方按钮进入系统。")
@@ -498,7 +501,7 @@ elif _phase == "upload":
         st.stop()
 
     st.markdown("### 📄 第一步：上传合同文件")
-    st.caption("支持 PDF / DOCX。系统将先对合同执行脱敏，再让霖信莯 · Qiaoxi Contract-Analyzer 系统的分析引擎读取脱敏后的内容。")
+    st.caption("支持 PDF / DOCX。系统将先对合同执行脱敏，再让合审通·AI商务合同审查系统的分析引擎读取脱敏后的内容。")
 
     uploaded_file = st.file_uploader("拖拽文件到此处，或点击浏览", type=["pdf", "docx"], key="contract_upload")
     do_parse = st.button("📤 上传并开始脱敏分析", type="primary", use_container_width=True)
@@ -562,11 +565,11 @@ elif _phase == "upload":
 elif _phase == "profile_r1":
 
     st.markdown("### 📋 第二步：客户画像 · 第一轮")
-    st.caption("以下问题是霖信莯 · Qiaoxi Contract-Analyzer 根据脱敏后的合同内容针对性生成的。分析引擎无法看到具体公司名或人名。")
+    st.caption("以下问题是合审通·AI商务合同审查 根据脱敏后的合同内容针对性生成的。分析引擎无法看到具体公司名或人名。")
 
     try:
         if st.session_state.r1_questions is None:
-            with st.spinner("霖信莯 · Qiaoxi Contract-Analyzer 正在根据脱敏合同内容生成针对性问题..."):
+            with st.spinner("合审通·AI商务合同审查 正在根据脱敏合同内容生成针对性问题..."):
                 st.session_state.r1_questions = _generate_r1_questions(st.session_state.contract_summary)
 
         r1q = st.session_state.r1_questions
@@ -672,7 +675,7 @@ elif _phase == "profile_r2":
 <div style="background:#e8f4fd;border:2px solid #1890ff;border-radius:10px;padding:20px 24px;margin:16px 0;text-align:center;">
   <div style="font-size:22px;margin-bottom:8px;">⏳</div>
   <div style="font-size:16px;font-weight:700;color:#0f3460;margin-bottom:6px;">
-    Qiaoxi Contract-Analyzer 系统正在处理您的信息需求
+    合审通·AI商务合同审查系统正在处理您的信息需求
   </div>
   <div style="font-size:14px;color:#555;line-height:1.8;">
     请耐心等待，系统正在调用法规数据库并分析合同内容，预计需要 30–60 秒。<br/>
@@ -724,8 +727,8 @@ elif _phase == "processing":
 
         progress_bar.progress(25, text="步骤 1/6: 条款树提取完成")
 
-        progress_bar.progress(33, text="步骤 2/6: 乔曦法律初审中（审查脱敏条款）...")
-        status_text.info("乔曦正在进行法律风险标定（锋锐模态）...")
+        progress_bar.progress(33, text="步骤 2/6: 法律初审中（审查脱敏条款）...")
+        status_text.info("正在进行法律风险标定（锋锐模态）...")
         audit.log_state_transition("1_parse", "2_legal_review")
 
         # RAG 法规检索
@@ -912,7 +915,7 @@ elif _phase == "processing":
 > **报告日期**: {datetime.now().strftime('%Y年%m月%d日')}
 > **合同文件**: {fn}
 > **出具方**: 霖信莯信息咨询
-> **隐私声明**: 本报告基于脱敏处理后的合同内容生成。霖信莯 Qiaoxi 分析引擎在分析过程中仅接触脱敏后的信息，未获取原始合同中的具体公司名称、自然人名、证件号或精确金额。
+> **隐私声明**: 本报告基于脱敏处理后的合同内容生成。霖信莯 合审通 分析引擎在分析过程中仅接触脱敏后的信息，未获取原始合同中的具体公司名称、自然人名、证件号或精确金额。
 
 ---
 
@@ -1253,7 +1256,7 @@ elif _phase == "processing":
         report += f"""
 ## 七、免责声明
 
-> **本报告为霖信莯信息咨询基于 Qiaoxi Contract-Analyzer 系统生成的商业决策辅助分析，不构成正式的法律意见、财务建议或投资建议。**
+> **本报告为霖信莯信息咨询基于合审通·AI商务合同审查系统生成的商业决策辅助分析，不构成正式的法律意见、财务建议或投资建议。**
 >
 > 报告中的法律风险分析基于系统内置的中国法律法规数据库，该数据库力求准确但可能存在更新延迟或个别条文解读偏差。报告中的商业分析和推演基于系统对合同文本的自动化解析，不可避免地存在信息不完整的局限。
 >
@@ -1267,7 +1270,7 @@ elif _phase == "processing":
 ---
 
 **昆明霖信莯科技有限公司**
-*本报告由 Qiaoxi Contract-Analyzer 自动生成*
+*本报告由合审通·AI商务合同审查自动生成*
 *报告日期：{datetime.now().strftime('%Y年%m月%d日')}*
 """
         st.session_state.final_report = report
@@ -1295,7 +1298,7 @@ elif _phase == "results":
         if result.get("success"):
             st.session_state.trial_recorded = True
             remaining = result.get("remaining", {})
-            st.success(f"✅ 体验已记录！乔曦剩余 {remaining.get('qiaoxi', 0)} 次 | 峤远剩余 {remaining.get('qiaoyuan', 0)} 次 | 程晓融剩余 {remaining.get('cxr', 0)} 次")
+            st.success(f"✅ 体验已记录！合审通剩余 {remaining.get('qiaoxi', 0)} 次 | 峤远剩余 {remaining.get('qiaoyuan', 0)} 次 | 程晓融剩余 {remaining.get('cxr', 0)} 次")
         else:
             st.warning(f"体验记录失败：{result.get('error', '请稍后重试')}")
 
@@ -1326,7 +1329,7 @@ elif _phase == "results":
         col_md.download_button(
             "📥 下载报告 (Markdown)",
             data=st.session_state.final_report,
-            file_name=f"Qiaoxi_Report_{ts}.md",
+            file_name=f"合审通_Report_{ts}.md",
             mime="text/markdown",
             use_container_width=True,
         )
@@ -1335,7 +1338,7 @@ elif _phase == "results":
             col_docx.download_button(
                 "📄 下载报告 (Word)",
                 data=docx_bytes,
-                file_name=f"Qiaoxi_Report_{ts}.docx",
+                file_name=f"合审通_Report_{ts}.docx",
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 use_container_width=True,
             )
@@ -1344,13 +1347,13 @@ elif _phase == "results":
 
     st.divider()
 
-    # ─── 高级服务：Qiaoxi 合同重构 ───
-    st.markdown("### 🔧 高级服务：Qiaoxi 合同重构")
+    # ─── 高级服务：合审通 合同重构 ───
+    st.markdown("### 🔧 高级服务：合审通 合同重构")
 
     # 付费槽位
     with st.expander("📋 服务说明与收费标准", expanded=False):
         st.markdown("""
-**Qiaoxi 合同重构服务**是基于本次审查报告，由 AI 引擎结合客户画像，重新起草一套完整的合同解决方案：
+**合审通 合同重构服务**是基于本次审查报告，由 AI 引擎结合客户画像，重新起草一套完整的合同解决方案：
 
 | 交付物 | 说明 |
 |--------|------|
@@ -1368,7 +1371,7 @@ elif _phase == "results":
         st.info("⚠️ 此为付费功能。如已获得授权码，请输入后解锁。")
         col_code, col_btn = st.columns([3, 1])
         auth_input = col_code.text_input(
-            "输入授权码", key="auth_code_input", placeholder="QIAOXI-XXXX-XXXX 或 CXL-XXXX-XXXX",
+            "输入授权码", key="auth_code_input", placeholder="CXL-XXXX-XXXX",
             label_visibility="collapsed"
         )
         if col_btn.button("验证", use_container_width=True):
@@ -1389,7 +1392,7 @@ elif _phase == "results":
                 st.error(result.get("error", "授权码无效，请联系霖信莯咨询获取正式授权码。"))
 
     if st.session_state.reconstruct_paid:
-        st.success("✅ 已解锁 Qiaoxi 合同重构服务")
+        st.success("✅ 已解锁 合审通 合同重构服务")
         st.markdown("#### 请选择合同重构方向")
         reconstruct_angle = st.radio(
             "您希望新合同的条款倾向于哪个方向？",
@@ -1401,7 +1404,7 @@ elif _phase == "results":
             st.session_state.reconstruct_angle = reconstruct_angle
             st.markdown(
                 f"**已选择：{reconstruct_angle}**\n\n"
-                "Qiaoxi 将在精读本次全部审查分析后，针对每一个风险点制定重构方案，"
+                "合审通 将在精读本次全部审查分析后，针对每一个风险点制定重构方案，"
                 "生成新合同草案 + 框架协议 + 尽调清单，共三份 Word 文件。"
             )
             if st.button("🚀 开始合同重构", type="primary", use_container_width=True):
@@ -1426,7 +1429,7 @@ elif _phase == "results":
             st.session_state.delete_requested = True
             st.rerun()
     else:
-        st.success("✅ 您的合同文件和中间态数据已从服务器上删除。感谢使用霖信莯 Qiaoxi。")
+        st.success("✅ 您的合同文件和中间态数据已从服务器上删除。感谢使用霖信莯 合审通。")
         st.info("如需重新使用本系统，请手动刷新页面。")
 
     st.divider()
@@ -1441,7 +1444,7 @@ elif _phase == "results":
 # Phase: reconstructing — 合同重构生成中
 # ═══════════════════════════════════════════════════════════════
 elif _phase == "reconstructing":
-    st.markdown("### 🔧 Qiaoxi 合同重构引擎运行中")
+    st.markdown("### 🔧 合审通 合同重构引擎运行中")
     st.markdown(f"重构方向：**{st.session_state.reconstruct_angle}**")
 
     prog = st.progress(0, text="准备中…")
@@ -1457,7 +1460,7 @@ elif _phase == "reconstructing":
 <div style="background:#e8f4fd;border:2px solid #1890ff;border-radius:10px;padding:20px 24px;margin:16px 0;text-align:center;">
   <div style="font-size:22px;margin-bottom:8px;">⏳</div>
   <div style="font-size:16px;font-weight:700;color:#0f3460;margin-bottom:6px;">
-    Qiaoxi Contract-Analyzer 正在处理您的需求
+    合审通 正在处理您的需求
   </div>
   <div style="font-size:14px;color:#555;line-height:1.8;">
     系统正在为您重构合同条款及附件，请耐心等待，预计需要 60–120 秒。<br/>
@@ -1537,7 +1540,7 @@ elif _phase == "reconstruct_done":
     st.divider()
 
     def _recon_docx(md_text: str, doc_title: str) -> bytes:
-        header = f"# {doc_title}\n\n*生成方向：{angle}*\n*生成时间：{datetime.now().strftime('%Y年%m月%d日 %H:%M')}*\n*霖信莯咨询 · Qiaoxi Contract-Analyzer*\n\n---\n\n"
+        header = f"# {doc_title}\n\n*生成方向：{angle}*\n*生成时间：{datetime.now().strftime('%Y年%m月%d日 %H:%M')}*\n*霖信莯咨询 · 合审通·AI商务合同审查*\n\n---\n\n"
         return _markdown_to_docx(header + (md_text or "（内容未生成）"))
 
     # 动态三列，跳过不需要的文件
@@ -1556,11 +1559,11 @@ elif _phase == "reconstruct_done":
         contract_draft = outputs.get("contract_draft", "")
         if contract_draft:
             try:
-                docx_bytes = _recon_docx(contract_draft, "Qiaoxi 重构合同草案")
+                docx_bytes = _recon_docx(contract_draft, "合审通 重构合同草案")
                 st.download_button(
                     "📥 下载新合同草案 (.docx)",
                     data=docx_bytes,
-                    file_name=f"Qiaoxi_重构合同_{ts}.docx",
+                    file_name=f"合审通_重构合同_{ts}.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                     use_container_width=True,
                     type="primary",
@@ -1570,7 +1573,7 @@ elif _phase == "reconstruct_done":
                 st.download_button(
                     "📥 下载新合同草案 (.md)",
                     data=contract_draft,
-                    file_name=f"Qiaoxi_重构合同_{ts}.md",
+                    file_name=f"合审通_重构合同_{ts}.md",
                     mime="text/markdown",
                     use_container_width=True,
                 )
@@ -1586,11 +1589,11 @@ elif _phase == "reconstruct_done":
             framework = outputs.get("framework_agreement", "")
             if framework:
                 try:
-                    docx_bytes = _recon_docx(framework, "Qiaoxi 框架协议（代尽调意向书）")
+                    docx_bytes = _recon_docx(framework, "合审通 框架协议（代尽调意向书）")
                     st.download_button(
                         "📥 下载框架协议 (.docx)",
                         data=docx_bytes,
-                        file_name=f"Qiaoxi_框架协议_{ts}.docx",
+                        file_name=f"合审通_框架协议_{ts}.docx",
                         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                         use_container_width=True,
                         type="primary",
@@ -1600,7 +1603,7 @@ elif _phase == "reconstruct_done":
                     st.download_button(
                         "📥 下载框架协议 (.md)",
                         data=framework,
-                        file_name=f"Qiaoxi_框架协议_{ts}.md",
+                        file_name=f"合审通_框架协议_{ts}.md",
                         mime="text/markdown",
                         use_container_width=True,
                     )
@@ -1616,11 +1619,11 @@ elif _phase == "reconstruct_done":
             dd_checklist = outputs.get("dd_checklist", "")
             if dd_checklist:
                 try:
-                    docx_bytes = _recon_docx(dd_checklist, "Qiaoxi 尽职调查清单（建议）")
+                    docx_bytes = _recon_docx(dd_checklist, "合审通 尽职调查清单（建议）")
                     st.download_button(
                         "📥 下载尽调清单 (.docx)",
                         data=docx_bytes,
-                        file_name=f"Qiaoxi_尽调清单_{ts}.docx",
+                        file_name=f"合审通_尽调清单_{ts}.docx",
                         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                         use_container_width=True,
                         type="primary",
@@ -1630,7 +1633,7 @@ elif _phase == "reconstruct_done":
                     st.download_button(
                         "📥 下载尽调清单 (.md)",
                         data=dd_checklist,
-                        file_name=f"Qiaoxi_尽调清单_{ts}.md",
+                        file_name=f"合审通_尽调清单_{ts}.md",
                         mime="text/markdown",
                         use_container_width=True,
                     )

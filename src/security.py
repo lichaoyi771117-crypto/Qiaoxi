@@ -278,17 +278,17 @@ class AuditLogger:
 
 USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",SimSun,serif; font-size:14px; line-height:2.0; color:#222; max-width:900px; margin:0 auto;'>
 
-<h2 style='text-align:center; font-size:20px; font-weight:bold; margin-bottom:8px;'>霖信莯咨询 · Qiaoxi Contract-Analyzer<br/>用户授权与服务协议</h2>
+<h2 style='text-align:center; font-size:20px; font-weight:bold; margin-bottom:8px;'>霖信莯咨询 · 合审通·AI商务合同审查<br/>用户授权与服务协议</h2>
 
 <p style='text-align:center; font-size:12px; color:#888; margin-bottom:24px;'>
 版本：v1.0 &nbsp;|&nbsp; 更新日期：2026年6月6日 &nbsp;|&nbsp; 生效日期：2026年6月6日<br/>
-运营主体：昆明霖信莯科技有限公司（以下简称"霖信莯"或"本公司"）
+运营主体：昆明霖信莯科技有限公司（以下简称"霖信莯"或"本公司"） ｜ 开发团队：李超逸、李屹泉
 </p>
 
 <div style='background:#fff3e0; border-left:4px solid #e65100; padding:16px; margin:16px 0; border-radius:4px;'>
 <p style='font-weight:bold; color:#e65100; margin:0 0 8px 0;'>⚠️ 重要提示</p>
 <p style='margin:0;'><b>尊敬的用户</b>：</p>
-<p style='margin:4px 0;'>感谢您选择霖信莯咨询开发的 Qiaoxi Contract-Analyzer 商业合同审查系统（以下简称"本系统"或"Qiaoxi"）。本系统是一款基于人工智能技术的商业合同审查与决策辅助工具。</p>
+<p style='margin:4px 0;'>感谢您选择霖信莯咨询开发的合审通·AI商务合同审查系统（以下简称"本系统"或"合审通"）。本系统是一款基于人工智能技术的商业合同审查与决策辅助工具。</p>
 <p style='margin:4px 0;'><b style='color:#d32f2f;'>请您在使用本系统之前，仔细阅读并充分理解本协议的全部条款，特别是以加粗、标红、高亮等方式显著标注的条款。您通过网络页面点击勾选或以其他方式确认本协议，即表示您已阅读、理解并同意接受本协议所有条款的约束。如果您不同意本协议的任何条款，请勿使用本系统。</b></p>
 <p style='margin:4px 0;'><b style='color:#d32f2f;'>本系统输出的分析报告仅供商业决策参考，不构成正式的法律意见、财务建议或投资建议。如果您需要具有法律效力的专业意见，请咨询持有相应资质的执业律师、会计师或其他专业人士。</b></p>
 <p style='margin:4px 0;'><b>本协议适用中华人民共和国法律。</b></p>
@@ -296,7 +296,7 @@ USER_CONSENT_TEMPLATE = """<div style='font-family:"Microsoft YaHei","宋体",Si
 
 <h3 style='font-size:16px; margin-top:28px; border-bottom:1px solid #ddd; padding-bottom:4px;'>第一条 定义与解释</h3>
 
-<p><b>1.1 本系统</b>：指霖信莯开发并运营的"Qiaoxi Contract-Analyzer 商业合同审查系统"，包括其全部功能模块、算法模型、用户界面及相关文档。</p>
+<p><b>1.1 本系统</b>：指霖信莯开发并运营的"合审通·AI商务合同审查系统"，包括其全部功能模块、算法模型、用户界面及相关文档。</p>
 <p><b>1.2 用户</b>：指通过霖信莯提供的访问途径使用本系统的自然人、法人或非法人组织。本协议中,"用户"与"您"具有相同含义。</p>
 <p><b>1.3 合同文件</b>：指用户上传至本系统的 PDF、DOCX 或图片格式的合同文本、协议文件及相关附件。</p>
 <p><b>1.4 输出报告</b>：指本系统基于用户上传的合同文件，通过人工智能算法处理后生成的《商业决策报告》及其他分析输出物。</p>
